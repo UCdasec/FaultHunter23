@@ -1,5 +1,7 @@
 package com.afivd.afivd;
 
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,11 +19,16 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
     private final ArrayList<VariableSearcher.VariableTuple> variables;
     private final ArrayList<String> codeLines;
 
+    private final int sensitivity;
+
+
+
     // Constructor
-    public LoopCheck(ParsedResults output,ArrayList<VariableSearcher.VariableTuple> variables,ArrayList<String> codeLines){
+    public LoopCheck(ParsedResults output,ArrayList<VariableSearcher.VariableTuple> variables,ArrayList<String> codeLines, int sensitivity){
         this.variables = variables;
         this.output = output;
         this.codeLines = codeLines;
+        this.sensitivity = sensitivity;
     }
 
     // ------------------------------------------ Listener Overrides ---------------------------------------------------
@@ -114,7 +121,8 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
                                 +finishedInsertion+codeLines.get(endLine-1).substring(endChar));
                     }
 
-                    this.output.appendResult(new ResultLine(ResultLine.SPANNING_RESULT,"loop_check","Recommended addition of loop-completion check regarding for-loop at "+startLine+" to "+endLine+". See replacements! ",startLine,endLine));
+                    if (!isConditionalInProximity(ctx, codeLines))
+                        this.output.appendResult(new ResultLine(ResultLine.SPANNING_RESULT,"loop_check","Recommended addition of loop-completion check regarding for-loop at "+startLine+" to "+endLine+". See replacements! ",startLine,endLine));
 
                     // TODO: If faultDetect() is not a function in the 'replacement' code file yet, add it
                 }
@@ -125,6 +133,7 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
                 // If there isn't an if-conditional expression, put one after the for-loop of the for-conditional expression
 
                 // We can assume for now that we can just add the additional code right afterward
+
                 int startLine = ctx.start.getLine();
                 int endLine = ctx.stop.getLine();
                 int startChar = ctx.start.getCharPositionInLine();
@@ -135,9 +144,10 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
                 String forLoopSuffix = "if("+conditionalForExpression+"){faultDetect();}";
 
                 // Add if-statement after for-loop
-                codeLines.set((endLine-1),codeLines.get((endLine-1))+"\n"+indentation+forLoopSuffix+"\n");
+                // codeLines.set((endLine-1),codeLines.get((endLine-1))+"\n"+indentation+forLoopSuffix+"\n");
 
-                this.output.appendResult(new ResultLine(ResultLine.SPANNING_RESULT,"loop_check","Recommended addition of loop-completion check regarding for-loop at "+startLine+" to "+endLine+". See replacements! ",startLine,endLine));
+                if (!isConditionalInProximity(ctx, codeLines))
+                    this.output.appendResult(new ResultLine(ResultLine.SPANNING_RESULT,"loop_check","Recommended addition of loop-completion check regarding for-loop at "+startLine+" to "+endLine+". See replacements! ",startLine,endLine));
 
             }
 
@@ -146,6 +156,26 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
 
     // -------------------------------------------- Helper Functions ---------------------------------------------------
 
+    public boolean isConditionalInProximity(CParser.IterationStatementContext ctx, ArrayList<String> codeLines) {
+        // Get start and end lines
+        // TODO: Expand to include variable searching within sensitivity and conditional
+
+        int startLine = ctx.start.getLine();
+        int endLine = ctx.stop.getLine();
+
+        // Look after loop for conditional statement
+        for (int i = 0; i < this.sensitivity; i++) {
+            if (codeLines.get(endLine).contains("if (") || codeLines.get(endLine).contains("if(")) {
+                // conditional found
+                // Support for relevance can be added here
+                return true;
+            }
+            endLine++;
+        }
+
+        // No conditional found
+        return false;
+    }
     public void reformatCodeLines(ArrayList<String> codeLines){
         // TODO: Reform codeLines for a clean file
         //for(String codeLine : codeLines){

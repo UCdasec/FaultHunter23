@@ -9,8 +9,5 @@
         <module name="afivd" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="afivd" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

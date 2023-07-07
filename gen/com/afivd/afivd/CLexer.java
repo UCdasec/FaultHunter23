@@ -1,4 +1,4 @@
-// Generated from C:/Users/Logan Reichling/Desktop/afivd/src/main/java/com/afivd/afivd\C.g4 by ANTLR 4.10.1
+// Generated from C:/Users/guill/uc_rhest/FaultHunter/src/main/java/com/afivd/afivd\C.g4 by ANTLR 4.12.0
 package com.afivd.afivd;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -9,9 +9,9 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class CLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =

@@ -1,4 +1,4 @@
-// Generated from C:/Users/Logan Reichling/Desktop/afivd/src/main/java/com/afivd/afivd\C.g4 by ANTLR 4.10.1
+// Generated from C:/Users/guill/uc_rhest/FaultHunter/src/main/java/com/afivd/afivd\C.g4 by ANTLR 4.12.0
 package com.afivd.afivd;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class CParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -189,6 +189,7 @@ public class CParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PrimaryExpressionContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(CParser.Identifier, 0); }
 		public TerminalNode Constant() { return getToken(CParser.Constant, 0); }
@@ -360,6 +361,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class GenericSelectionContext extends ParserRuleContext {
 		public TerminalNode Generic() { return getToken(CParser.Generic, 0); }
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
@@ -421,6 +423,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class GenericAssocListContext extends ParserRuleContext {
 		public List<GenericAssociationContext> genericAssociation() {
 			return getRuleContexts(GenericAssociationContext.class);
@@ -489,6 +492,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class GenericAssociationContext extends ParserRuleContext {
 		public TerminalNode Colon() { return getToken(CParser.Colon, 0); }
 		public AssignmentExpressionContext assignmentExpression() {
@@ -581,6 +585,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PostfixExpressionContext extends ParserRuleContext {
 		public PrimaryExpressionContext primaryExpression() {
 			return getRuleContext(PrimaryExpressionContext.class,0);
@@ -717,7 +722,7 @@ public class CParser extends Parser {
 			setState(261);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (LeftBracket - 59)) | (1L << (PlusPlus - 59)) | (1L << (MinusMinus - 59)) | (1L << (Arrow - 59)) | (1L << (Dot - 59)))) != 0)) {
+			while (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 26388279107589L) != 0)) {
 				{
 				setState(259);
 				_errHandler.sync(this);
@@ -739,7 +744,7 @@ public class CParser extends Parser {
 					setState(253);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 						{
 						setState(252);
 						argumentExpressionList();
@@ -803,6 +808,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ArgumentExpressionListContext extends ParserRuleContext {
 		public List<AssignmentExpressionContext> assignmentExpression() {
 			return getRuleContexts(AssignmentExpressionContext.class);
@@ -871,6 +877,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class UnaryExpressionContext extends ParserRuleContext {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
@@ -937,7 +944,7 @@ public class CParser extends Parser {
 					{
 					setState(272);
 					_la = _input.LA(1);
-					if ( !(((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & ((1L << (Sizeof - 39)) | (1L << (PlusPlus - 39)) | (1L << (MinusMinus - 39)))) != 0)) ) {
+					if ( !(((((_la - 39)) & ~0x3f) == 0 && ((1L << (_la - 39)) & 42949672961L) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -1026,6 +1033,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class UnaryOperatorContext extends ParserRuleContext {
 		public TerminalNode And() { return getToken(CParser.And, 0); }
 		public TerminalNode Star() { return getToken(CParser.Star, 0); }
@@ -1061,7 +1069,7 @@ public class CParser extends Parser {
 			{
 			setState(291);
 			_la = _input.LA(1);
-			if ( !(((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (Minus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)))) != 0)) ) {
+			if ( !(((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 12437L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1082,6 +1090,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class CastExpressionContext extends ParserRuleContext {
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
 		public TypeNameContext typeName() {
@@ -1172,6 +1181,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class MultiplicativeExpressionContext extends ParserRuleContext {
 		public List<CastExpressionContext> castExpression() {
 			return getRuleContexts(CastExpressionContext.class);
@@ -1222,12 +1232,12 @@ public class CParser extends Parser {
 			setState(310);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & ((1L << (Star - 75)) | (1L << (Div - 75)) | (1L << (Mod - 75)))) != 0)) {
+			while (((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & 7L) != 0)) {
 				{
 				{
 				setState(306);
 				_la = _input.LA(1);
-				if ( !(((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & ((1L << (Star - 75)) | (1L << (Div - 75)) | (1L << (Mod - 75)))) != 0)) ) {
+				if ( !(((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & 7L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -1256,6 +1266,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AdditiveExpressionContext extends ParserRuleContext {
 		public List<MultiplicativeExpressionContext> multiplicativeExpression() {
 			return getRuleContexts(MultiplicativeExpressionContext.class);
@@ -1336,6 +1347,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ShiftExpressionContext extends ParserRuleContext {
 		public List<AdditiveExpressionContext> additiveExpression() {
 			return getRuleContexts(AdditiveExpressionContext.class);
@@ -1416,6 +1428,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class RelationalExpressionContext extends ParserRuleContext {
 		public List<ShiftExpressionContext> shiftExpression() {
 			return getRuleContexts(ShiftExpressionContext.class);
@@ -1470,12 +1483,12 @@ public class CParser extends Parser {
 			setState(334);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (Less - 65)) | (1L << (LessEqual - 65)) | (1L << (Greater - 65)) | (1L << (GreaterEqual - 65)))) != 0)) {
+			while (((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 15L) != 0)) {
 				{
 				{
 				setState(330);
 				_la = _input.LA(1);
-				if ( !(((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (Less - 65)) | (1L << (LessEqual - 65)) | (1L << (Greater - 65)) | (1L << (GreaterEqual - 65)))) != 0)) ) {
+				if ( !(((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 15L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -1504,6 +1517,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EqualityExpressionContext extends ParserRuleContext {
 		public List<RelationalExpressionContext> relationalExpression() {
 			return getRuleContexts(RelationalExpressionContext.class);
@@ -1584,6 +1598,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AndExpressionContext extends ParserRuleContext {
 		public List<EqualityExpressionContext> equalityExpression() {
 			return getRuleContexts(EqualityExpressionContext.class);
@@ -1652,6 +1667,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ExclusiveOrExpressionContext extends ParserRuleContext {
 		public List<AndExpressionContext> andExpression() {
 			return getRuleContexts(AndExpressionContext.class);
@@ -1720,6 +1736,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class InclusiveOrExpressionContext extends ParserRuleContext {
 		public List<ExclusiveOrExpressionContext> exclusiveOrExpression() {
 			return getRuleContexts(ExclusiveOrExpressionContext.class);
@@ -1788,6 +1805,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class LogicalAndExpressionContext extends ParserRuleContext {
 		public List<InclusiveOrExpressionContext> inclusiveOrExpression() {
 			return getRuleContexts(InclusiveOrExpressionContext.class);
@@ -1856,6 +1874,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class LogicalOrExpressionContext extends ParserRuleContext {
 		public List<LogicalAndExpressionContext> logicalAndExpression() {
 			return getRuleContexts(LogicalAndExpressionContext.class);
@@ -1924,6 +1943,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ConditionalExpressionContext extends ParserRuleContext {
 		public LogicalOrExpressionContext logicalOrExpression() {
 			return getRuleContext(LogicalOrExpressionContext.class,0);
@@ -1993,6 +2013,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignmentExpressionContext extends ParserRuleContext {
 		public ConditionalExpressionContext conditionalExpression() {
 			return getRuleContext(ConditionalExpressionContext.class,0);
@@ -2071,6 +2092,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignmentOperatorContext extends ParserRuleContext {
 		public TerminalNode Assign() { return getToken(CParser.Assign, 0); }
 		public TerminalNode StarAssign() { return getToken(CParser.StarAssign, 0); }
@@ -2111,7 +2133,7 @@ public class CParser extends Parser {
 			{
 			setState(401);
 			_la = _input.LA(1);
-			if ( !(((((_la - 89)) & ~0x3f) == 0 && ((1L << (_la - 89)) & ((1L << (Assign - 89)) | (1L << (StarAssign - 89)) | (1L << (DivAssign - 89)) | (1L << (ModAssign - 89)) | (1L << (PlusAssign - 89)) | (1L << (MinusAssign - 89)) | (1L << (LeftShiftAssign - 89)) | (1L << (RightShiftAssign - 89)) | (1L << (AndAssign - 89)) | (1L << (XorAssign - 89)) | (1L << (OrAssign - 89)))) != 0)) ) {
+			if ( !(((((_la - 89)) & ~0x3f) == 0 && ((1L << (_la - 89)) & 2047L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2132,6 +2154,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ExpressionContext extends ParserRuleContext {
 		public List<AssignmentExpressionContext> assignmentExpression() {
 			return getRuleContexts(AssignmentExpressionContext.class);
@@ -2200,6 +2223,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ConstantExpressionContext extends ParserRuleContext {
 		public ConditionalExpressionContext conditionalExpression() {
 			return getRuleContext(ConditionalExpressionContext.class,0);
@@ -2244,6 +2268,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DeclarationContext extends ParserRuleContext {
 		public DeclarationSpecifiersContext declarationSpecifiers() {
 			return getRuleContext(DeclarationSpecifiersContext.class,0);
@@ -2326,7 +2351,7 @@ public class CParser extends Parser {
 				setState(415);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (Star - 59)) | (1L << (Caret - 59)) | (1L << (Identifier - 59)))) != 0)) {
+				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 70368752631809L) != 0)) {
 					{
 					setState(414);
 					initDeclaratorList();
@@ -2359,6 +2384,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DeclarationSpecifiersContext extends ParserRuleContext {
 		public List<DeclarationSpecifierContext> declarationSpecifier() {
 			return getRuleContexts(DeclarationSpecifierContext.class);
@@ -2425,6 +2451,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DeclarationSpecifiers2Context extends ParserRuleContext {
 		public List<DeclarationSpecifierContext> declarationSpecifier() {
 			return getRuleContexts(DeclarationSpecifierContext.class);
@@ -2471,7 +2498,7 @@ public class CParser extends Parser {
 				setState(430); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << Auto) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Static) | (1L << Struct) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Alignas) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Noreturn) | (1L << ThreadLocal))) != 0) || _la==Identifier );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 376889975390377970L) != 0) || _la==Identifier );
 			}
 		}
 		catch (RecognitionException re) {
@@ -2485,6 +2512,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DeclarationSpecifierContext extends ParserRuleContext {
 		public StorageClassSpecifierContext storageClassSpecifier() {
 			return getRuleContext(StorageClassSpecifierContext.class,0);
@@ -2575,6 +2603,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class InitDeclaratorListContext extends ParserRuleContext {
 		public List<InitDeclaratorContext> initDeclarator() {
 			return getRuleContexts(InitDeclaratorContext.class);
@@ -2643,6 +2672,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class InitDeclaratorContext extends ParserRuleContext {
 		public DeclaratorContext declarator() {
 			return getRuleContext(DeclaratorContext.class,0);
@@ -2704,6 +2734,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StorageClassSpecifierContext extends ParserRuleContext {
 		public TerminalNode Typedef() { return getToken(CParser.Typedef, 0); }
 		public TerminalNode Extern() { return getToken(CParser.Extern, 0); }
@@ -2739,7 +2770,7 @@ public class CParser extends Parser {
 			{
 			setState(452);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Auto) | (1L << Extern) | (1L << Register) | (1L << Static) | (1L << Typedef) | (1L << ThreadLocal))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 288240289003372544L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2760,6 +2791,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TypeSpecifierContext extends ParserRuleContext {
 		public TerminalNode Void() { return getToken(CParser.Void, 0); }
 		public TerminalNode Char() { return getToken(CParser.Char, 0); }
@@ -2850,7 +2882,7 @@ public class CParser extends Parser {
 				{
 				setState(455);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << Char) | (1L << Double) | (1L << Float) | (1L << Int) | (1L << Long) | (1L << Short) | (1L << Signed) | (1L << Unsigned) | (1L << Void) | (1L << Bool) | (1L << Complex))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 13616777343008880L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2868,7 +2900,7 @@ public class CParser extends Parser {
 				match(LeftParen);
 				setState(458);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__3) | (1L << T__4) | (1L << T__5))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 112L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2956,6 +2988,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StructOrUnionSpecifierContext extends ParserRuleContext {
 		public StructOrUnionContext structOrUnion() {
 			return getRuleContext(StructOrUnionContext.class,0);
@@ -3038,6 +3071,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StructOrUnionContext extends ParserRuleContext {
 		public TerminalNode Struct() { return getToken(CParser.Struct, 0); }
 		public TerminalNode Union() { return getToken(CParser.Union, 0); }
@@ -3090,6 +3124,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StructDeclarationListContext extends ParserRuleContext {
 		public List<StructDeclarationContext> structDeclaration() {
 			return getRuleContexts(StructDeclarationContext.class);
@@ -3136,7 +3171,7 @@ public class CParser extends Parser {
 				setState(496); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Float) | (1L << Int) | (1L << Long) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Struct) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << StaticAssert))) != 0) || _la==Identifier );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 160144328324022514L) != 0) || _la==Identifier );
 			}
 		}
 		catch (RecognitionException re) {
@@ -3150,6 +3185,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StructDeclarationContext extends ParserRuleContext {
 		public SpecifierQualifierListContext specifierQualifierList() {
 			return getRuleContext(SpecifierQualifierListContext.class,0);
@@ -3219,7 +3255,7 @@ public class CParser extends Parser {
 				setState(500);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (Star - 59)) | (1L << (Caret - 59)) | (1L << (Colon - 59)) | (1L << (Identifier - 59)))) != 0)) {
+				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 70368886849537L) != 0)) {
 					{
 					setState(499);
 					structDeclaratorList();
@@ -3252,6 +3288,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SpecifierQualifierListContext extends ParserRuleContext {
 		public TypeSpecifierContext typeSpecifier() {
 			return getRuleContext(TypeSpecifierContext.class,0);
@@ -3326,6 +3363,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StructDeclaratorListContext extends ParserRuleContext {
 		public List<StructDeclaratorContext> structDeclarator() {
 			return getRuleContexts(StructDeclaratorContext.class);
@@ -3394,6 +3432,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StructDeclaratorContext extends ParserRuleContext {
 		public DeclaratorContext declarator() {
 			return getRuleContext(DeclaratorContext.class,0);
@@ -3442,7 +3481,7 @@ public class CParser extends Parser {
 				setState(524);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (Star - 59)) | (1L << (Caret - 59)) | (1L << (Identifier - 59)))) != 0)) {
+				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 70368752631809L) != 0)) {
 					{
 					setState(523);
 					declarator();
@@ -3468,6 +3507,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EnumSpecifierContext extends ParserRuleContext {
 		public TerminalNode Enum() { return getToken(CParser.Enum, 0); }
 		public TerminalNode LeftBrace() { return getToken(CParser.LeftBrace, 0); }
@@ -3559,6 +3599,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EnumeratorListContext extends ParserRuleContext {
 		public List<EnumeratorContext> enumerator() {
 			return getRuleContexts(EnumeratorContext.class);
@@ -3629,6 +3670,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EnumeratorContext extends ParserRuleContext {
 		public EnumerationConstantContext enumerationConstant() {
 			return getRuleContext(EnumerationConstantContext.class,0);
@@ -3690,6 +3732,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class EnumerationConstantContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(CParser.Identifier, 0); }
 		public EnumerationConstantContext(ParserRuleContext parent, int invokingState) {
@@ -3732,6 +3775,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AtomicTypeSpecifierContext extends ParserRuleContext {
 		public TerminalNode Atomic() { return getToken(CParser.Atomic, 0); }
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
@@ -3785,6 +3829,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TypeQualifierContext extends ParserRuleContext {
 		public TerminalNode Const() { return getToken(CParser.Const, 0); }
 		public TerminalNode Restrict() { return getToken(CParser.Restrict, 0); }
@@ -3818,7 +3863,7 @@ public class CParser extends Parser {
 			{
 			setState(565);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -3839,6 +3884,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionSpecifierContext extends ParserRuleContext {
 		public TerminalNode Inline() { return getToken(CParser.Inline, 0); }
 		public TerminalNode Noreturn() { return getToken(CParser.Noreturn, 0); }
@@ -3883,7 +3929,7 @@ public class CParser extends Parser {
 				{
 				setState(567);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__7) | (1L << T__8) | (1L << Inline) | (1L << Noreturn))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 72057596185412352L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -3928,6 +3974,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AlignmentSpecifierContext extends ParserRuleContext {
 		public TerminalNode Alignas() { return getToken(CParser.Alignas, 0); }
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
@@ -3998,6 +4045,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DeclaratorContext extends ParserRuleContext {
 		public DirectDeclaratorContext directDeclarator() {
 			return getRuleContext(DirectDeclaratorContext.class,0);
@@ -4079,6 +4127,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DirectDeclaratorContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(CParser.Identifier, 0); }
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
@@ -4184,7 +4233,7 @@ public class CParser extends Parser {
 				setState(604);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << Char) | (1L << Double) | (1L << Enum) | (1L << Float) | (1L << Int) | (1L << Long) | (1L << Short) | (1L << Signed) | (1L << Struct) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Atomic) | (1L << Bool) | (1L << Complex))) != 0) || _la==Identifier) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 15888368399548658L) != 0) || _la==Identifier) {
 					{
 					setState(603);
 					typeSpecifier(0);
@@ -4223,7 +4272,7 @@ public class CParser extends Parser {
 						setState(615);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) {
 							{
 							setState(614);
 							typeQualifierList();
@@ -4233,7 +4282,7 @@ public class CParser extends Parser {
 						setState(618);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 							{
 							setState(617);
 							assignmentExpression();
@@ -4257,7 +4306,7 @@ public class CParser extends Parser {
 						setState(625);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) {
 							{
 							setState(624);
 							typeQualifierList();
@@ -4299,7 +4348,7 @@ public class CParser extends Parser {
 						setState(640);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) {
 							{
 							setState(639);
 							typeQualifierList();
@@ -4368,6 +4417,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class GccDeclaratorExtensionContext extends ParserRuleContext {
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
 		public TerminalNode RightParen() { return getToken(CParser.RightParen, 0); }
@@ -4452,6 +4502,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class GccAttributeSpecifierContext extends ParserRuleContext {
 		public List<TerminalNode> LeftParen() { return getTokens(CParser.LeftParen); }
 		public TerminalNode LeftParen(int i) {
@@ -4514,6 +4565,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class GccAttributeListContext extends ParserRuleContext {
 		public List<GccAttributeContext> gccAttribute() {
 			return getRuleContexts(GccAttributeContext.class);
@@ -4554,7 +4606,7 @@ public class CParser extends Parser {
 			setState(679);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << Auto) | (1L << Break) | (1L << Case) | (1L << Char) | (1L << Const) | (1L << Continue) | (1L << Default) | (1L << Do) | (1L << Double) | (1L << Else) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << For) | (1L << Goto) | (1L << If) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Return) | (1L << Short) | (1L << Signed) | (1L << Sizeof) | (1L << Static) | (1L << Struct) | (1L << Switch) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << While) | (1L << Alignas) | (1L << Alignof) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Generic) | (1L << Imaginary) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal) | (1L << LeftBracket) | (1L << RightBracket) | (1L << LeftBrace))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (RightBrace - 64)) | (1L << (Less - 64)) | (1L << (LessEqual - 64)) | (1L << (Greater - 64)) | (1L << (GreaterEqual - 64)) | (1L << (LeftShift - 64)) | (1L << (RightShift - 64)) | (1L << (Plus - 64)) | (1L << (PlusPlus - 64)) | (1L << (Minus - 64)) | (1L << (MinusMinus - 64)) | (1L << (Star - 64)) | (1L << (Div - 64)) | (1L << (Mod - 64)) | (1L << (And - 64)) | (1L << (Or - 64)) | (1L << (AndAnd - 64)) | (1L << (OrOr - 64)) | (1L << (Caret - 64)) | (1L << (Not - 64)) | (1L << (Tilde - 64)) | (1L << (Question - 64)) | (1L << (Colon - 64)) | (1L << (Semi - 64)) | (1L << (Assign - 64)) | (1L << (StarAssign - 64)) | (1L << (DivAssign - 64)) | (1L << (ModAssign - 64)) | (1L << (PlusAssign - 64)) | (1L << (MinusAssign - 64)) | (1L << (LeftShiftAssign - 64)) | (1L << (RightShiftAssign - 64)) | (1L << (AndAssign - 64)) | (1L << (XorAssign - 64)) | (1L << (OrAssign - 64)) | (1L << (Equal - 64)) | (1L << (NotEqual - 64)) | (1L << (Arrow - 64)) | (1L << (Dot - 64)) | (1L << (Ellipsis - 64)) | (1L << (Identifier - 64)) | (1L << (Constant - 64)) | (1L << (DigitSequence - 64)) | (1L << (StringLiteral - 64)) | (1L << (ComplexDefine - 64)) | (1L << (IncludeDirective - 64)) | (1L << (AsmBlock - 64)) | (1L << (LineAfterPreprocessing - 64)) | (1L << (LineDirective - 64)) | (1L << (PragmaDirective - 64)) | (1L << (Whitespace - 64)) | (1L << (Newline - 64)) | (1L << (BlockComment - 64)) | (1L << (LineComment - 64)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & -1729382256910270466L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 36028797002186751L) != 0)) {
 				{
 				setState(678);
 				gccAttribute();
@@ -4572,7 +4624,7 @@ public class CParser extends Parser {
 				setState(683);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << Auto) | (1L << Break) | (1L << Case) | (1L << Char) | (1L << Const) | (1L << Continue) | (1L << Default) | (1L << Do) | (1L << Double) | (1L << Else) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << For) | (1L << Goto) | (1L << If) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Return) | (1L << Short) | (1L << Signed) | (1L << Sizeof) | (1L << Static) | (1L << Struct) | (1L << Switch) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << While) | (1L << Alignas) | (1L << Alignof) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Generic) | (1L << Imaginary) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal) | (1L << LeftBracket) | (1L << RightBracket) | (1L << LeftBrace))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (RightBrace - 64)) | (1L << (Less - 64)) | (1L << (LessEqual - 64)) | (1L << (Greater - 64)) | (1L << (GreaterEqual - 64)) | (1L << (LeftShift - 64)) | (1L << (RightShift - 64)) | (1L << (Plus - 64)) | (1L << (PlusPlus - 64)) | (1L << (Minus - 64)) | (1L << (MinusMinus - 64)) | (1L << (Star - 64)) | (1L << (Div - 64)) | (1L << (Mod - 64)) | (1L << (And - 64)) | (1L << (Or - 64)) | (1L << (AndAnd - 64)) | (1L << (OrOr - 64)) | (1L << (Caret - 64)) | (1L << (Not - 64)) | (1L << (Tilde - 64)) | (1L << (Question - 64)) | (1L << (Colon - 64)) | (1L << (Semi - 64)) | (1L << (Assign - 64)) | (1L << (StarAssign - 64)) | (1L << (DivAssign - 64)) | (1L << (ModAssign - 64)) | (1L << (PlusAssign - 64)) | (1L << (MinusAssign - 64)) | (1L << (LeftShiftAssign - 64)) | (1L << (RightShiftAssign - 64)) | (1L << (AndAssign - 64)) | (1L << (XorAssign - 64)) | (1L << (OrAssign - 64)) | (1L << (Equal - 64)) | (1L << (NotEqual - 64)) | (1L << (Arrow - 64)) | (1L << (Dot - 64)) | (1L << (Ellipsis - 64)) | (1L << (Identifier - 64)) | (1L << (Constant - 64)) | (1L << (DigitSequence - 64)) | (1L << (StringLiteral - 64)) | (1L << (ComplexDefine - 64)) | (1L << (IncludeDirective - 64)) | (1L << (AsmBlock - 64)) | (1L << (LineAfterPreprocessing - 64)) | (1L << (LineDirective - 64)) | (1L << (PragmaDirective - 64)) | (1L << (Whitespace - 64)) | (1L << (Newline - 64)) | (1L << (BlockComment - 64)) | (1L << (LineComment - 64)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & -1729382256910270466L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 36028797002186751L) != 0)) {
 					{
 					setState(682);
 					gccAttribute();
@@ -4598,6 +4650,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class GccAttributeContext extends ParserRuleContext {
 		public TerminalNode Comma() { return getToken(CParser.Comma, 0); }
 		public List<TerminalNode> LeftParen() { return getTokens(CParser.LeftParen); }
@@ -4639,7 +4692,7 @@ public class CParser extends Parser {
 			{
 			setState(690);
 			_la = _input.LA(1);
-			if ( _la <= 0 || (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (RightParen - 59)) | (1L << (Comma - 59)))) != 0)) ) {
+			if ( _la <= 0 || (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 536870915L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -4657,7 +4710,7 @@ public class CParser extends Parser {
 				setState(693);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 					{
 					setState(692);
 					argumentExpressionList();
@@ -4682,6 +4735,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class NestedParenthesesBlockContext extends ParserRuleContext {
 		public List<TerminalNode> LeftParen() { return getTokens(CParser.LeftParen); }
 		public TerminalNode LeftParen(int i) {
@@ -4726,7 +4780,7 @@ public class CParser extends Parser {
 			setState(705);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << Auto) | (1L << Break) | (1L << Case) | (1L << Char) | (1L << Const) | (1L << Continue) | (1L << Default) | (1L << Do) | (1L << Double) | (1L << Else) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << For) | (1L << Goto) | (1L << If) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Return) | (1L << Short) | (1L << Signed) | (1L << Sizeof) | (1L << Static) | (1L << Struct) | (1L << Switch) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << While) | (1L << Alignas) | (1L << Alignof) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Generic) | (1L << Imaginary) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal) | (1L << LeftParen) | (1L << LeftBracket) | (1L << RightBracket) | (1L << LeftBrace))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (RightBrace - 64)) | (1L << (Less - 64)) | (1L << (LessEqual - 64)) | (1L << (Greater - 64)) | (1L << (GreaterEqual - 64)) | (1L << (LeftShift - 64)) | (1L << (RightShift - 64)) | (1L << (Plus - 64)) | (1L << (PlusPlus - 64)) | (1L << (Minus - 64)) | (1L << (MinusMinus - 64)) | (1L << (Star - 64)) | (1L << (Div - 64)) | (1L << (Mod - 64)) | (1L << (And - 64)) | (1L << (Or - 64)) | (1L << (AndAnd - 64)) | (1L << (OrOr - 64)) | (1L << (Caret - 64)) | (1L << (Not - 64)) | (1L << (Tilde - 64)) | (1L << (Question - 64)) | (1L << (Colon - 64)) | (1L << (Semi - 64)) | (1L << (Comma - 64)) | (1L << (Assign - 64)) | (1L << (StarAssign - 64)) | (1L << (DivAssign - 64)) | (1L << (ModAssign - 64)) | (1L << (PlusAssign - 64)) | (1L << (MinusAssign - 64)) | (1L << (LeftShiftAssign - 64)) | (1L << (RightShiftAssign - 64)) | (1L << (AndAssign - 64)) | (1L << (XorAssign - 64)) | (1L << (OrAssign - 64)) | (1L << (Equal - 64)) | (1L << (NotEqual - 64)) | (1L << (Arrow - 64)) | (1L << (Dot - 64)) | (1L << (Ellipsis - 64)) | (1L << (Identifier - 64)) | (1L << (Constant - 64)) | (1L << (DigitSequence - 64)) | (1L << (StringLiteral - 64)) | (1L << (ComplexDefine - 64)) | (1L << (IncludeDirective - 64)) | (1L << (AsmBlock - 64)) | (1L << (LineAfterPreprocessing - 64)) | (1L << (LineDirective - 64)) | (1L << (PragmaDirective - 64)) | (1L << (Whitespace - 64)) | (1L << (Newline - 64)) | (1L << (BlockComment - 64)) | (1L << (LineComment - 64)))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & -1152921504606846978L) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 36028797018963967L) != 0)) {
 				{
 				setState(703);
 				_errHandler.sync(this);
@@ -4891,6 +4945,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class PointerContext extends ParserRuleContext {
 		public List<TerminalNode> Star() { return getTokens(CParser.Star); }
 		public TerminalNode Star(int i) {
@@ -4984,6 +5039,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TypeQualifierListContext extends ParserRuleContext {
 		public List<TypeQualifierContext> typeQualifier() {
 			return getRuleContexts(TypeQualifierContext.class);
@@ -5050,6 +5106,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ParameterTypeListContext extends ParserRuleContext {
 		public ParameterListContext parameterList() {
 			return getRuleContext(ParameterListContext.class,0);
@@ -5109,6 +5166,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ParameterListContext extends ParserRuleContext {
 		public List<ParameterDeclarationContext> parameterDeclaration() {
 			return getRuleContexts(ParameterDeclarationContext.class);
@@ -5179,6 +5237,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ParameterDeclarationContext extends ParserRuleContext {
 		public DeclarationSpecifiersContext declarationSpecifiers() {
 			return getRuleContext(DeclarationSpecifiersContext.class,0);
@@ -5236,7 +5295,7 @@ public class CParser extends Parser {
 				setState(739);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (LeftBracket - 59)) | (1L << (Star - 59)) | (1L << (Caret - 59)))) != 0)) {
+				if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 8454149L) != 0)) {
 					{
 					setState(738);
 					abstractDeclarator();
@@ -5258,6 +5317,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IdentifierListContext extends ParserRuleContext {
 		public List<TerminalNode> Identifier() { return getTokens(CParser.Identifier); }
 		public TerminalNode Identifier(int i) {
@@ -5324,6 +5384,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TypeNameContext extends ParserRuleContext {
 		public SpecifierQualifierListContext specifierQualifierList() {
 			return getRuleContext(SpecifierQualifierListContext.class,0);
@@ -5362,7 +5423,7 @@ public class CParser extends Parser {
 			setState(753);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (LeftBracket - 59)) | (1L << (Star - 59)) | (1L << (Caret - 59)))) != 0)) {
+			if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 8454149L) != 0)) {
 				{
 				setState(752);
 				abstractDeclarator();
@@ -5382,6 +5443,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class AbstractDeclaratorContext extends ParserRuleContext {
 		public PointerContext pointer() {
 			return getRuleContext(PointerContext.class,0);
@@ -5473,6 +5535,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DirectAbstractDeclaratorContext extends ParserRuleContext {
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
 		public AbstractDeclaratorContext abstractDeclarator() {
@@ -5572,7 +5635,7 @@ public class CParser extends Parser {
 				setState(780);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) {
 					{
 					setState(779);
 					typeQualifierList();
@@ -5582,7 +5645,7 @@ public class CParser extends Parser {
 				setState(783);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 					{
 					setState(782);
 					assignmentExpression();
@@ -5602,7 +5665,7 @@ public class CParser extends Parser {
 				setState(789);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) {
 					{
 					setState(788);
 					typeQualifierList();
@@ -5646,7 +5709,7 @@ public class CParser extends Parser {
 				setState(805);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << Auto) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Static) | (1L << Struct) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Alignas) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Noreturn) | (1L << ThreadLocal))) != 0) || _la==Identifier) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 376889975390377970L) != 0) || _la==Identifier) {
 					{
 					setState(804);
 					parameterTypeList();
@@ -5697,7 +5760,7 @@ public class CParser extends Parser {
 						setState(819);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) {
 							{
 							setState(818);
 							typeQualifierList();
@@ -5707,7 +5770,7 @@ public class CParser extends Parser {
 						setState(822);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 							{
 							setState(821);
 							assignmentExpression();
@@ -5731,7 +5794,7 @@ public class CParser extends Parser {
 						setState(829);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Const) | (1L << Restrict) | (1L << Volatile) | (1L << Atomic))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2392571662303232L) != 0)) {
 							{
 							setState(828);
 							typeQualifierList();
@@ -5787,7 +5850,7 @@ public class CParser extends Parser {
 						setState(848);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << Auto) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Static) | (1L << Struct) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Alignas) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Noreturn) | (1L << ThreadLocal))) != 0) || _la==Identifier) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 376889975390377970L) != 0) || _la==Identifier) {
 							{
 							setState(847);
 							parameterTypeList();
@@ -5834,6 +5897,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TypedefNameContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(CParser.Identifier, 0); }
 		public TypedefNameContext(ParserRuleContext parent, int invokingState) {
@@ -5876,6 +5940,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class InitializerContext extends ParserRuleContext {
 		public AssignmentExpressionContext assignmentExpression() {
 			return getRuleContext(AssignmentExpressionContext.class,0);
@@ -5975,6 +6040,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class InitializerListContext extends ParserRuleContext {
 		public List<InitializerContext> initializer() {
 			return getRuleContexts(InitializerContext.class);
@@ -6072,6 +6138,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DesignationContext extends ParserRuleContext {
 		public DesignatorListContext designatorList() {
 			return getRuleContext(DesignatorListContext.class,0);
@@ -6119,6 +6186,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DesignatorListContext extends ParserRuleContext {
 		public List<DesignatorContext> designator() {
 			return getRuleContexts(DesignatorContext.class);
@@ -6179,6 +6247,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DesignatorContext extends ParserRuleContext {
 		public TerminalNode LeftBracket() { return getToken(CParser.LeftBracket, 0); }
 		public ConstantExpressionContext constantExpression() {
@@ -6248,6 +6317,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StaticAssertDeclarationContext extends ParserRuleContext {
 		public TerminalNode StaticAssert() { return getToken(CParser.StaticAssert, 0); }
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
@@ -6326,6 +6396,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class StatementContext extends ParserRuleContext {
 		public LabeledStatementContext labeledStatement() {
 			return getRuleContext(LabeledStatementContext.class,0);
@@ -6460,7 +6531,7 @@ public class CParser extends Parser {
 				setState(933);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 					{
 					setState(925);
 					logicalOrExpression();
@@ -6494,7 +6565,7 @@ public class CParser extends Parser {
 					setState(944);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 						{
 						setState(936);
 						logicalOrExpression();
@@ -6542,6 +6613,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class LabeledStatementContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(CParser.Identifier, 0); }
 		public TerminalNode Colon() { return getToken(CParser.Colon, 0); }
@@ -6629,6 +6701,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class CompoundStatementContext extends ParserRuleContext {
 		public TerminalNode LeftBrace() { return getToken(CParser.LeftBrace, 0); }
 		public TerminalNode RightBrace() { return getToken(CParser.RightBrace, 0); }
@@ -6666,7 +6739,7 @@ public class CParser extends Parser {
 			setState(970);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Auto) | (1L << Break) | (1L << Case) | (1L << Char) | (1L << Const) | (1L << Continue) | (1L << Default) | (1L << Do) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << For) | (1L << Goto) | (1L << If) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Return) | (1L << Short) | (1L << Signed) | (1L << Sizeof) | (1L << Static) | (1L << Struct) | (1L << Switch) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << While) | (1L << Alignas) | (1L << Alignof) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Generic) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal) | (1L << LeftParen) | (1L << LeftBrace))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Semi - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & -8106479329283686402L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698116255L) != 0)) {
 				{
 				setState(969);
 				blockItemList();
@@ -6688,6 +6761,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class BlockItemListContext extends ParserRuleContext {
 		public List<BlockItemContext> blockItem() {
 			return getRuleContexts(BlockItemContext.class);
@@ -6734,7 +6808,7 @@ public class CParser extends Parser {
 				setState(977); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Auto) | (1L << Break) | (1L << Case) | (1L << Char) | (1L << Const) | (1L << Continue) | (1L << Default) | (1L << Do) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << For) | (1L << Goto) | (1L << If) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Return) | (1L << Short) | (1L << Signed) | (1L << Sizeof) | (1L << Static) | (1L << Struct) | (1L << Switch) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << While) | (1L << Alignas) | (1L << Alignof) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Generic) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal) | (1L << LeftParen) | (1L << LeftBrace))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Semi - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & -8106479329283686402L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698116255L) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -6748,6 +6822,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class BlockItemContext extends ParserRuleContext {
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
@@ -6808,6 +6883,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ExpressionStatementContext extends ParserRuleContext {
 		public TerminalNode Semi() { return getToken(CParser.Semi, 0); }
 		public ExpressionContext expression() {
@@ -6842,7 +6918,7 @@ public class CParser extends Parser {
 			setState(984);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 				{
 				setState(983);
 				expression();
@@ -6864,6 +6940,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class SelectionStatementContext extends ParserRuleContext {
 		public TerminalNode If() { return getToken(CParser.If, 0); }
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
@@ -6962,6 +7039,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class IterationStatementContext extends ParserRuleContext {
 		public TerminalNode While() { return getToken(CParser.While, 0); }
 		public TerminalNode LeftParen() { return getToken(CParser.LeftParen, 0); }
@@ -7068,6 +7146,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ForConditionContext extends ParserRuleContext {
 		public List<TerminalNode> Semi() { return getTokens(CParser.Semi); }
 		public TerminalNode Semi(int i) {
@@ -7125,7 +7204,7 @@ public class CParser extends Parser {
 				setState(1029);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 					{
 					setState(1028);
 					expression();
@@ -7140,7 +7219,7 @@ public class CParser extends Parser {
 			setState(1035);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 				{
 				setState(1034);
 				forExpression();
@@ -7152,7 +7231,7 @@ public class CParser extends Parser {
 			setState(1039);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 				{
 				setState(1038);
 				forExpression();
@@ -7172,6 +7251,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ForDeclarationContext extends ParserRuleContext {
 		public DeclarationSpecifiersContext declarationSpecifiers() {
 			return getRuleContext(DeclarationSpecifiersContext.class,0);
@@ -7210,7 +7290,7 @@ public class CParser extends Parser {
 			setState(1043);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & ((1L << (LeftParen - 59)) | (1L << (Star - 59)) | (1L << (Caret - 59)) | (1L << (Identifier - 59)))) != 0)) {
+			if (((((_la - 59)) & ~0x3f) == 0 && ((1L << (_la - 59)) & 70368752631809L) != 0)) {
 				{
 				setState(1042);
 				initDeclaratorList();
@@ -7230,6 +7310,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ForExpressionContext extends ParserRuleContext {
 		public List<AssignmentExpressionContext> assignmentExpression() {
 			return getRuleContexts(AssignmentExpressionContext.class);
@@ -7298,6 +7379,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class JumpStatementContext extends ParserRuleContext {
 		public TerminalNode Semi() { return getToken(CParser.Semi, 0); }
 		public TerminalNode Goto() { return getToken(CParser.Goto, 0); }
@@ -7369,7 +7451,7 @@ public class CParser extends Parser {
 				setState(1058);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2) | (1L << Sizeof) | (1L << Alignof) | (1L << Generic) | (1L << LeftParen))) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (Plus - 71)) | (1L << (PlusPlus - 71)) | (1L << (Minus - 71)) | (1L << (MinusMinus - 71)) | (1L << (Star - 71)) | (1L << (And - 71)) | (1L << (AndAnd - 71)) | (1L << (Not - 71)) | (1L << (Tilde - 71)) | (1L << (Identifier - 71)) | (1L << (Constant - 71)) | (1L << (DigitSequence - 71)) | (1L << (StringLiteral - 71)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 595601600475561998L) != 0) || ((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & 257698050719L) != 0)) {
 					{
 					setState(1057);
 					expression();
@@ -7402,6 +7484,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class CompilationUnitContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(CParser.EOF, 0); }
 		public TranslationUnitContext translationUnit() {
@@ -7436,7 +7519,7 @@ public class CParser extends Parser {
 			setState(1067);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << Auto) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Static) | (1L << Struct) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Alignas) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal) | (1L << LeftParen))) != 0) || ((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & ((1L << (Star - 75)) | (1L << (Caret - 75)) | (1L << (Semi - 75)) | (1L << (Identifier - 75)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1097465915769657330L) != 0) || ((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & 1073746049L) != 0)) {
 				{
 				setState(1066);
 				translationUnit();
@@ -7458,6 +7541,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class TranslationUnitContext extends ParserRuleContext {
 		public List<ExternalDeclarationContext> externalDeclaration() {
 			return getRuleContexts(ExternalDeclarationContext.class);
@@ -7504,7 +7588,7 @@ public class CParser extends Parser {
 				setState(1074); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << Auto) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Static) | (1L << Struct) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Alignas) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal) | (1L << LeftParen))) != 0) || ((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & ((1L << (Star - 75)) | (1L << (Caret - 75)) | (1L << (Semi - 75)) | (1L << (Identifier - 75)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 1097465915769657330L) != 0) || ((((_la - 75)) & ~0x3f) == 0 && ((1L << (_la - 75)) & 1073746049L) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -7518,6 +7602,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class ExternalDeclarationContext extends ParserRuleContext {
 		public FunctionDefinitionContext functionDefinition() {
 			return getRuleContext(FunctionDefinitionContext.class,0);
@@ -7586,6 +7671,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionDefinitionContext extends ParserRuleContext {
 		public DeclaratorContext declarator() {
 			return getRuleContext(DeclaratorContext.class,0);
@@ -7640,7 +7726,7 @@ public class CParser extends Parser {
 			setState(1086);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << Auto) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Static) | (1L << Struct) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Alignas) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal))) != 0) || _la==Identifier) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 521005163466233842L) != 0) || _la==Identifier) {
 				{
 				setState(1085);
 				declarationList();
@@ -7662,6 +7748,7 @@ public class CParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class DeclarationListContext extends ParserRuleContext {
 		public List<DeclarationContext> declaration() {
 			return getRuleContexts(DeclarationContext.class);
@@ -7708,7 +7795,7 @@ public class CParser extends Parser {
 				setState(1093); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << Auto) | (1L << Char) | (1L << Const) | (1L << Double) | (1L << Enum) | (1L << Extern) | (1L << Float) | (1L << Inline) | (1L << Int) | (1L << Long) | (1L << Register) | (1L << Restrict) | (1L << Short) | (1L << Signed) | (1L << Static) | (1L << Struct) | (1L << Typedef) | (1L << Union) | (1L << Unsigned) | (1L << Void) | (1L << Volatile) | (1L << Alignas) | (1L << Atomic) | (1L << Bool) | (1L << Complex) | (1L << Noreturn) | (1L << StaticAssert) | (1L << ThreadLocal))) != 0) || _la==Identifier );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 521005163466233842L) != 0) || _la==Identifier );
 			}
 		}
 		catch (RecognitionException re) {

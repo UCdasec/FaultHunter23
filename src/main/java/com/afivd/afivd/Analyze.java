@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
  * The Analyze class acts as a container to run all of our created Fault patterns and also handle initially parsing
  * the passed C file using ANTLR.
  */
-public class Analyze {
+public class    Analyze {
     private CParser parser;
     private CParser.CompilationUnitContext parseTree;
     private final ArrayList<String> codeLines;
@@ -71,7 +71,7 @@ public class Analyze {
         faultPatterns.add(new DefaultFail(results));
         // Flow flowListener = new Flow();
         // DoubleCheck doubleCheckListener = new DoubleCheck();
-        faultPatterns.add(new LoopCheck(results,codeVariables,codeLines));
+        faultPatterns.add(new LoopCheck(results,codeVariables,codeLines, 4));
         faultPatterns.add(new Branch(results));
         // Respond respondListener = new Respond();
         // Delay delayListener = new Delay();
