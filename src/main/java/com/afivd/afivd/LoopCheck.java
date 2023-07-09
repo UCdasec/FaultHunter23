@@ -3,6 +3,8 @@ package com.afivd.afivd;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -156,6 +158,103 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
 
     // -------------------------------------------- Helper Functions ---------------------------------------------------
 
+    public String getCharactersAfterComparison(String comparison) {
+        // Regular expression pattern to match characters after any sign (with optional whitespace)
+        String pattern = "\\s*[^<>=!]+\\s*([<>=!]+)(.*)";
+
+        // Create a Pattern object with the pattern
+        Pattern compiledPattern = Pattern.compile(pattern);
+
+        // Match the pattern against the input
+        Matcher matcher = compiledPattern.matcher(comparison);
+
+        // Check if a match is found
+        if (matcher.matches()) {
+            // Extract the characters after the sign
+            return matcher.group(2).trim();
+        }
+        return "";
+    }
+
+    public String getCharactersBeforeComparison(String comparison) {
+        // Regular expression pattern to match characters before any sign (with optional whitespace)
+        String pattern = "\\s*([^<>=!]+)\\s*[<>=!]+.*";
+
+        // Create a Pattern object with the pattern
+        Pattern compiledPattern = Pattern.compile(pattern);
+
+        // Match the pattern against the input
+        Matcher matcher = compiledPattern.matcher(comparison);
+
+        // Check if a match is found
+        if (matcher.matches()) {
+            // Extract the characters before the sign
+            return matcher.group(1).trim();
+        }
+        return "";
+    }
+
+    public boolean isConditionalRelevant(CParser.IterationStatementContext ctx, ArrayList<String> relevantVariables, ArrayList<String> codeLines, int conditionalIndex) {
+        String foundConditional = codeLines.get(conditionalIndex);
+        String conditionalForExpression = ctx.forCondition().expression().getText();
+
+        ArrayList<String> conditionalVars = new ArrayList<String>();
+        ArrayList<String> forVars = new ArrayList<String>();
+
+        // Get variables in for declaration
+        forVars.add(this.getCharactersBeforeComparison(conditionalForExpression));
+        forVars.add(this.getCharactersAfterComparison(conditionalForExpression));
+
+        // Get variables in found conditional
+        String insideFoundConditional = foundConditional.substring(foundConditional.indexOf('(')+1, foundConditional.indexOf(')'));
+        conditionalVars.add(this.getCharactersBeforeComparison(insideFoundConditional));
+        conditionalVars.add(this.getCharactersAfterComparison(insideFoundConditional));
+
+        // See if any variables are being checked in the conditional found.
+        for (int i = 0; i < conditionalVars.size(); i++) {
+            // Iterate through conditional vars
+            String var = conditionalVars.get(i);
+            for (int j = 0; j < forVars.size(); j++) {
+                // Are loop variables being checked?
+                if (Objects.equals(var, forVars.get(j))) {
+                    // Loop variables checked
+                    return true;
+                }
+            }
+
+            for (int j = 0; j < relevantVariables.size(); j++) {
+                // Are relevant variables being checked?
+                if (Objects.equals(var, relevantVariables.get(j))) {
+                    // Loop variables checked
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public void scanLineForVariable(ArrayList<String> relevantVariables, String codeline) {
+        ArrayList<String> dataTypes = new ArrayList<String>(Arrays.asList(
+                "char", "int", "float", "double", "long", "short", "unsigned", "signed",
+                "void", "bool", "struct", "enum", "union", "const", "volatile"
+        ));
+
+        // Create a regular expression pattern to match the C data type and variable name at the start of the string
+        String pattern = "\\b(" + String.join("|", dataTypes) + ")\\s+([a-zA-Z_][a-zA-Z0-9_]*)";
+
+        // Compile the pattern
+        Pattern compiledPattern = Pattern.compile(pattern);
+
+        // Match the pattern against the input string
+        Matcher matcher = compiledPattern.matcher(codeline);
+
+        // Check if a match is found
+        if (matcher.find()) {
+            // Extract the variable name from the matched group
+            relevantVariables.add(matcher.group(2));
+        }
+    }
     public boolean isConditionalInProximity(CParser.IterationStatementContext ctx, ArrayList<String> codeLines) {
         // Get start and end lines
         // TODO: Expand to include variable searching within sensitivity and conditional
@@ -163,12 +262,20 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
         int startLine = ctx.start.getLine();
         int endLine = ctx.stop.getLine();
 
+        ArrayList<String> relevantVariables = new ArrayList<String>();
+
+        // Look before loop for relevant variables
+        for (int i = 0; i < this.sensitivity; i++) {
+            this.scanLineForVariable(relevantVariables, codeLines.get(startLine-1));
+            startLine--;
+        }
+
         // Look after loop for conditional statement
         for (int i = 0; i < this.sensitivity; i++) {
             if (codeLines.get(endLine).contains("if (") || codeLines.get(endLine).contains("if(")) {
                 // conditional found
                 // Support for relevance can be added here
-                return true;
+                return this.isConditionalRelevant(ctx, relevantVariables, codeLines, endLine);
             }
             endLine++;
         }
