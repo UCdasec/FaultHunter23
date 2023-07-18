@@ -73,6 +73,7 @@ public class    Analyze {
         // DoubleCheck doubleCheckListener = new DoubleCheck();
         faultPatterns.add(new LoopCheck(results,codeVariables,codeLines, 4));
         faultPatterns.add(new Branch(results));
+        faultPatterns.add(new DoubleCheck(results, codeLines));
         // Respond respondListener = new Respond();
         // Delay delayListener = new Delay();
         // Bypass bypassListener = new Bypass();
