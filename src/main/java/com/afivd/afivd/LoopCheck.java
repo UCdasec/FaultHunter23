@@ -39,7 +39,6 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
         if(ctx.getStart().getText().equalsIgnoreCase("for")){
             // If there is already a variable in a same or higher depth, we are forced to rename
             // If there is already a variable in a lesser depth, look inside if-statements and make sure that a loop check hasn't already been added.
-
             // Case 1: There is an explicit declaration and initialization of a variable in the for-loop
             if(ctx.forCondition().forDeclaration() != null){
                 CParser.ForDeclarationContext forDeclaration = ctx.forCondition().forDeclaration();
@@ -196,14 +195,18 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
 
     public boolean isConditionalRelevant(CParser.IterationStatementContext ctx, ArrayList<String> relevantVariables, ArrayList<String> codeLines, int conditionalIndex) {
         String foundConditional = codeLines.get(conditionalIndex);
-        String conditionalForExpression = ctx.forCondition().expression().getText();
 
-        ArrayList<String> conditionalVars = new ArrayList<String>();
         ArrayList<String> forVars = new ArrayList<String>();
+        ArrayList<String> conditionalVars = new ArrayList<String>();
 
-        // Get variables in for declaration
-        forVars.add(this.getCharactersBeforeComparison(conditionalForExpression));
-        forVars.add(this.getCharactersAfterComparison(conditionalForExpression));
+        if (ctx.forCondition().expression() != null) {
+            String conditionalForExpression = ctx.forCondition().expression().getText();
+
+            // Get variables in for declaration
+            forVars.add(this.getCharactersAfterComparison(conditionalForExpression));
+            forVars.add(this.getCharactersBeforeComparison(conditionalForExpression));
+        }
+
 
         // Get variables in found conditional
         String insideFoundConditional = foundConditional.substring(foundConditional.indexOf('(')+1, foundConditional.indexOf(')'));
@@ -277,7 +280,9 @@ public class LoopCheck extends CBaseListener implements FaultPattern{
                 // Support for relevance can be added here
                 return this.isConditionalRelevant(ctx, relevantVariables, codeLines, endLine);
             }
-            endLine++;
+            if (endLine + 1 == codeLines.size())
+                break;
+            else endLine++;
         }
 
         // No conditional found
