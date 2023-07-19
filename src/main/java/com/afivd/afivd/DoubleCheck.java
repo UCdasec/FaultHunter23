@@ -5,6 +5,11 @@ import org.antlr.v4.runtime.Token;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The DoubleCheck class checks for decisions upon a single test as a risk in terms of fault injection attacks.
+ * Currently, double check sensitive conditions, preferably not identical, but complementary.
+ * Covers Fault.DoubleCheck
+ */
 public class DoubleCheck extends CBaseListener implements FaultPattern {
 
     private boolean currentlyInIfStatement = false;
