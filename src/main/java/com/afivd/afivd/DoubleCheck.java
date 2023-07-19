@@ -10,6 +10,8 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
     private boolean currentlyInIfStatement = false;
     private boolean rootConditionFound = false;
     private boolean complementFound = false;
+    private boolean inForCondition = false;
+
     private final ParsedResults output;
     private final ArrayList<String> codeLines;
 
@@ -24,26 +26,34 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
     }
 
     // ------------------------------------------ Listener Overrides ---------------------------------------------------
+    // Records whether the parse tree is inside a for-condition, if so ignore branches
+    @Override
+    public void enterForCondition(CParser.ForConditionContext ctx) {this.inForCondition = true;}
+    @Override
+    public void exitForCondition(CParser.ForConditionContext ctx) {this.inForCondition = false;}
+
     @Override
     public void enterSelectionStatement(CParser.SelectionStatementContext ctx) {
-        currentlyInIfStatement = true;
-        // Inside if
-        if (ctx.If() != null) {
-            // Check how many ifs there are inside this one:
-            int start = ctx.start.getLine();
-            int end = ctx.stop.getLine();
-            if (rootConditionalEnd < end) rootConditionalEnd = end;
+        if (!inForCondition) {
+            currentlyInIfStatement = true;
+            // Inside if
+            if (ctx.If() != null) {
+                // Check how many ifs there are inside this one:
+                int start = ctx.start.getLine();
+                int end = ctx.stop.getLine();
+                if (rootConditionalEnd < end) rootConditionalEnd = end;
 
-            if (foundConditionals <= 0) {
-                for (int i = 0; i < end - start; i++) {
-                    if (isLineConditional(codeLines.get(start + i))) {
-                        // Increase conditional counter
-                        foundConditionals++;
+                if (foundConditionals <= 0) {
+                    for (int i = 0; i < end - start; i++) {
+                        if (isLineConditional(codeLines.get(start + i))) {
+                            // Increase conditional counter
+                            foundConditionals++;
+                        }
                     }
                 }
-            }
 
-            return;
+                return;
+            }
         }
     }
 
@@ -70,7 +80,7 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
     @Override
     public void enterEqualityExpression(CParser.EqualityExpressionContext ctx) {
         // Needs to be if statement
-        if (currentlyInIfStatement) {
+        if (currentlyInIfStatement && !inForCondition) {
             String si = ctx.getText();
 
             int start = ctx.start.getLine();
@@ -84,10 +94,7 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
                     if (isIntegerOrHex(ctxes.get(0).getText())) {
                         // left is int or hex
                         String value = ctxes.get(0).getText();
-                        int pComplement;
-
-                        if (value.startsWith("0x")) pComplement = (Integer.parseInt(value.substring(2), 16));
-                        else pComplement = (Integer.parseInt(value));
+                        int pComplement = parseInteger(value);
 
                         // Check complement here
                         if (isComplement(values.get(0), pComplement)) {
@@ -95,17 +102,17 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
                             return;
                         }
 
-                    } else {
+                    } else if (isIntegerOrHex(ctxes.get(1).getText())) {
                         String value = ctxes.get(1).getText();
-                        int pComplement;
-
-                        if (value.startsWith("0x")) pComplement = (Integer.parseInt(value.substring(2), 16));
-                        else pComplement = (Integer.parseInt(value));
+                        int pComplement = parseInteger(value);
 
                         if (isComplement(values.get(0), pComplement)) {
                             complementFound = true;
                             return;
                         }
+                    } else {
+                        // No num
+                        return;
                     }
                 } else {
                     // Grab root conditional information
@@ -114,14 +121,16 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
                         // left is int or hex
                         varNames.add(ctxes.get(1).getText());
                         String value = ctxes.get(0).getText();
-                        if (value.startsWith("0x")) values.add(Integer.parseInt(value.substring(2), 16));
-                        else values.add(Integer.parseInt(value));
+                        addParsedInteger(value);
 
-                    } else {
+                    } else if (isIntegerOrHex(ctxes.get(1).getText())) {
                         varNames.add(ctxes.get(0).getText());
                         String value = ctxes.get(1).getText();
-                        if (value.startsWith("0x")) values.add(Integer.parseInt(value.substring(2), 16));
-                        else values.add(Integer.parseInt(value));
+                        addParsedInteger(value);
+                        
+                    } else {
+                        // No numbers in condition
+                        return;
                     }
 
                     rootConditionFound = true;
@@ -134,6 +143,20 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
     @Override
     public void runAtEnd () {
         // Nothing currently needed for DoubleCheck
+    }
+
+    private void addParsedInteger(String str) {
+        try {
+            if (str.startsWith("0x")) values.add(Integer.parseInt(str.substring(2), 16));
+            else values.add(Integer.parseInt(str));
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+
+    private int parseInteger(String str) {
+        if (str.startsWith("0x")) return (Integer.parseInt(str.substring(2), 16));
+        else return (Integer.parseInt(str));
     }
 
     private boolean isIntegerOrHex(String str) {
