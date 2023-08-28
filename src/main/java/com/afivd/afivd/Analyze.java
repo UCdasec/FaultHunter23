@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Future;
 
 // TODO: #define, #endif, and #if statements have now been seen to completely mess up parsing, need to deal with.
+// UPDATE: Could not find sufficient evidence for above TODO
 
 /**
  * The Analyze class acts as a container to run all of our created Fault patterns and also handle initially parsing
