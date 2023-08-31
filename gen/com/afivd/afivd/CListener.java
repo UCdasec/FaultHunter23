@@ -1,4 +1,4 @@
-// Generated from C:/Users/guill/uc_rhest/FaultHunter/src/main/java/com/afivd/afivd\C.g4 by ANTLR 4.12.0
+// Generated from /home/prateekvk/Desktop/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.12.0
 package com.afivd.afivd;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -287,6 +287,16 @@ public interface CListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDeclarationSpecifier(CParser.DeclarationSpecifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CParser#preprocessorDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CParser#preprocessorDeclaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CParser#initDeclaratorList}.
 	 * @param ctx the parse tree
@@ -847,6 +857,16 @@ public interface CListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTranslationUnit(CParser.TranslationUnitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CParser#preprocessorDirective}.
+	 * @param ctx the parse tree
+	 */
+	void enterPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CParser#preprocessorDirective}.
+	 * @param ctx the parse tree
+	 */
+	void exitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CParser#externalDeclaration}.
 	 * @param ctx the parse tree

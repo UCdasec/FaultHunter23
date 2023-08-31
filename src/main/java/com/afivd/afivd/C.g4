@@ -154,6 +154,7 @@ constantExpression
 declaration
     :   declarationSpecifiers initDeclaratorList? ';'
     |   staticAssertDeclaration
+    |   preprocessorDeclaration
     ;
 
 declarationSpecifiers
@@ -170,6 +171,10 @@ declarationSpecifier
     |   typeQualifier
     |   functionSpecifier
     |   alignmentSpecifier
+    ;
+
+preprocessorDeclaration
+    :   primaryExpression (expression | '(' expression ')')
     ;
 
 initDeclaratorList
@@ -432,6 +437,7 @@ blockItemList
 blockItem
     :   statement
     |   declaration
+    |   preprocessorDirective
     ;
 
 expressionStatement
@@ -481,9 +487,23 @@ translationUnit
     :   externalDeclaration+
     ;
 
+preprocessorDirective
+    :   Define preprocessorDeclaration
+    |   PP_if '(' expression ')' (preprocessorDirective | statement)
+        (PP_elif '(' expression ')' (preprocessorDirective | statement))*
+        (PP_else (preprocessorDirective | statement))?
+        PP_endif
+    |   PP_ifdef primaryExpression (preprocessorDirective | statement) PP_endif
+    |   PP_ifndef primaryExpression (preprocessorDirective | statement) PP_endif
+    |   PP_undef primaryExpression
+    |   Warning primaryExpression
+    |   Error primaryExpression
+    ;
+
 externalDeclaration
     :   functionDefinition
     |   declaration
+    |   preprocessorDirective
     |   ';' // stray ;
     ;
 
@@ -595,6 +615,17 @@ NotEqual : '!=';
 Arrow : '->';
 Dot : '.';
 Ellipsis : '...';
+
+Define: '#define';
+PP_if: '#if';
+PP_ifdef: '#ifdef';
+PP_ifndef: '#ifndef';
+PP_elif: '#elif';
+PP_else: '#else';
+PP_endif: '#endif';
+PP_undef: '#undef';
+Warning: '#warning';
+Error: '#error';
 
 Identifier
     :   IdentifierNondigit
@@ -834,10 +865,10 @@ SChar
     |   '\\\r\n' // Added line
     ;
 
-ComplexDefine
-    :   '#' Whitespace? ('define' | 'ifdef' | 'endif' | 'if' | 'warning')  ~[#\r\n]*
-        -> skip
-    ;
+//ComplexDefine
+//    :   '#' Whitespace? ('define' | 'ifdef' | 'endif' | 'if' | 'warning')  ~[#\r\n]*
+//        -> skip
+//    ;
 
 IncludeDirective
     :   '#' Whitespace? 'include' Whitespace? (('"' ~[\r\n]* '"') | ('<' ~[\r\n]* '>' )) Whitespace? Newline

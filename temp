@@ -1,0 +1,37 @@
+grammar CWithDirectives;
+
+compilationUnit: (controlLine | constantExpression | conditional | text)*;
+
+controlLine: (defineDirective | includeDirective | lineDirective | undefDirective | errorDirective | pragmaDirective) NEWLINE;
+
+defineDirective: '#define' Identifier ( '(' ( Identifier ( ',' Identifier )* )? ')' )? TokenString?;
+includeDirective: ('#include' ('"' PathSpec '"' | '<' PathSpec '>')) NEWLINE;
+lineDirective: '#line' DigitSequence ( '"' Filename '"' )? NEWLINE;
+undefDirective: '#undef' Identifier NEWLINE;
+errorDirective: '#error' TokenString NEWLINE;
+pragmaDirective: '#pragma' TokenString NEWLINE;
+
+constantExpression: 'defined' '(' Identifier ')' | 'defined' Identifier | anyOtherConstantExpression;
+
+conditional: ifPart elifParts? elsePart? endifLine;
+
+ifPart: ifLine text;
+elifParts: elifLine text (elifLine text)*;
+elsePart: elseLine text;
+endifLine: '#endif' NEWLINE;
+
+ifLine: '#if' constantExpression | '#ifdef' Identifier | '#ifndef' Identifier;
+elifLine: '#elif' constantExpression;
+elseLine: '#else';
+
+text: ~[\r\n]+;
+
+DigitSequence: Digit+;
+TokenString: '"' ~["\r\n]* '"';
+Identifier: [a-zA-Z_][a-zA-Z0-9_]*;
+Filename: ~[\r\n]*;
+PathSpec: ~[\r\n]*;
+
+NEWLINE: '\r'? '\n' | '\r';
+Whitespace: [ \t]+ -> skip;
+Digit: [0-9];

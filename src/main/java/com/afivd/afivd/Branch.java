@@ -3,8 +3,6 @@ package com.afivd.afivd;
 import java.util.*;
 import org.antlr.v4.runtime.Token;
 
-//TODO: Update this pattern later to handle when the constant is on the left side of the conditional
-
 /**
  * The Branch class checks for trivial constants in if-expressions to better safeguard against fault injection attacks
  * Covers Fault.BRANCH
@@ -104,7 +102,7 @@ public class Branch extends CBaseListener implements FaultPattern{
             }
         }
         // Report if the number of trivial / non-trivial statements is correct
-        // Will be very verbose with these if-statements to make sure I handle all of the cases
+        // Will be very verbose with these if-statements to make sure I handle all the cases
         // Only AND statements:
         if(numNonTrivialORStatements==0&&numTrivialORStatements==0&&numTrivialANDStatements>=1&&numNonTrivialANDStatements==0){
             for(TempResult tempResult : tempResults){
@@ -192,32 +190,32 @@ public class Branch extends CBaseListener implements FaultPattern{
         List<CParser.RelationalExpressionContext> ctxes = ctx.relationalExpression();
         if (ctxes.size() > 1 && !inForCondition) {
             if (ctx.Equal() != null && currentlyInIfStatement) {
-                if (ctxes.get(1).getText().equalsIgnoreCase("true") ||
+                if (ctxes.get(0).getText().equalsIgnoreCase("true") ||
+                        ctxes.get(0).getText().equalsIgnoreCase("false") || ctxes.get(1).getText().equalsIgnoreCase("true") ||
                         ctxes.get(1).getText().equalsIgnoreCase("false")) {
-                    if(inOrExpression&&!inAndExpression){
-                        tempResults.add(new TempResult(true,TempResult.OR_FLAG,new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using trivial bool in branch statement.",lineNumber)));
-                    }else if (!inOrExpression&&inAndExpression){
-                        tempResults.add(new TempResult(true,TempResult.AND_FLAG,new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using trivial bool in branch statement.",lineNumber)));
-                    }else if (inOrExpression&&inAndExpression){
-                        tempResults.add(new TempResult(true,TempResult.AND_FLAG,new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using trivial bool in branch statement.",lineNumber)));
-                    }else{
+                    if (inOrExpression && !inAndExpression) {
+                        tempResults.add(new TempResult(true, TempResult.OR_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using trivial bool in branch statement.", lineNumber)));
+                    } else if (!inOrExpression && inAndExpression) {
+                        tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using trivial bool in branch statement.", lineNumber)));
+                    } else if (inOrExpression && inAndExpression) {
+                        tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using trivial bool in branch statement.", lineNumber)));
+                    } else {
                         // Else, the if statement does not use an AND or an OR operator
-                        output.appendResult(new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using trivial bool in branch statement.",lineNumber));
+                        output.appendResult(new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using trivial bool in branch statement.", lineNumber));
                     }
-
-
-                } else if (isInteger(ctxes.get(1).getText())) {
-                    if(inOrExpression&&!inAndExpression){
-                        tempResults.add(new TempResult(true,TempResult.OR_FLAG,new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using explicit integer instead of variable in branch.",lineNumber)));
-                    }else if (!inOrExpression&&inAndExpression){
-                        tempResults.add(new TempResult(true,TempResult.AND_FLAG,new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using explicit integer instead of variable in branch.",lineNumber)));
-                    }else if (inOrExpression&&inAndExpression){
-                        tempResults.add(new TempResult(true,TempResult.AND_FLAG,new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using explicit integer instead of variable in branch.",lineNumber)));
-                    }else{
+                } else if (isInteger(ctxes.get(0).getText()) || isInteger(ctxes.get(1).getText())) {
+                    if (inOrExpression && !inAndExpression) {
+                        tempResults.add(new TempResult(true, TempResult.OR_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
+                    } else if (!inOrExpression && inAndExpression) {
+                        tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
+                    } else if (inOrExpression && inAndExpression) {
+                        tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
+                    } else {
                         // Else, the if statement does not use an AND or an OR operator
-                        output.appendResult(new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using explicit integer instead of variable in branch.",lineNumber));
+                        output.appendResult(new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber));
                     }
-                } else {
+                }
+                else {
                     // Else, the statement is deemed not trivial, so if we are in an AND or OR statement, report in the negative
                     // ResultLines will be null since we won't use them anyways
                     if(inOrExpression&&!inAndExpression){
@@ -241,7 +239,7 @@ public class Branch extends CBaseListener implements FaultPattern{
         List<CParser.ShiftExpressionContext> ctxes = ctx.shiftExpression();
         if (ctxes.size() > 1 && !inForCondition) {
             if (ctx.GreaterEqual() != null || ctx.LessEqual() != null && currentlyInIfStatement) {
-                if (isInteger(ctxes.get(1).getText())) {
+                if (isInteger(ctxes.get(0).getText()) || isInteger(ctxes.get(1).getText())) {
                     if(inOrExpression&&!inAndExpression){
                         tempResults.add(new TempResult(true,TempResult.OR_FLAG,new ResultLine(ResultLine.SINGLE_LINE,"branch","\""+ctx.getText()+"\""+" Using explicit integer instead of variable in branch.",lineNumber)));
                     }else if (!inOrExpression&&inAndExpression){

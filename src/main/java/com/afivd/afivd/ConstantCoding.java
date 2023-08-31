@@ -82,6 +82,28 @@ public class ConstantCoding extends CBaseListener implements FaultPattern {
         this.inSwitchCase = false;
     }
 
+    // enterPreprocessorDeclaration for preprocessorDirective #define statements
+    @Override
+    public void enterPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx) {
+        Token token = ctx.getStart();
+        int lineNumber = token.getLine();
+        int number;
+
+        if(ctx.expression() != null && isInteger(ctx.expression().getText())) {
+            try {
+                if (isHex(ctx.expression().getText())) {
+                    number = Integer.parseInt(ctx.expression().getText().replaceAll("0x", ""), 16);
+                } else {
+                    number = Integer.parseInt(ctx.expression().getText());
+                }
+            } catch (NumberFormatException e) {System.out.println("something wrong with regex");return;}
+
+            lineNumbers.add(lineNumber);
+            expressionContent.add(ctx.primaryExpression().getText() + ' ' + ctx.expression().getText());
+            values.add(number);
+        }
+    }
+
     // enterInitDeclarator and enterAssignmentExpression collects values in the file and finds explicit declarations
     @Override
     public void enterInitDeclarator(CParser.InitDeclaratorContext ctx) {
@@ -120,6 +142,7 @@ public class ConstantCoding extends CBaseListener implements FaultPattern {
         int number;
         // Current exception list:
         //      * No variables in for-loop declaration
+
         if (ctx.assignmentOperator() != null && !inForLoop && ctx.assignmentOperator().getText().equals("=")
                 && ctx.assignmentExpression() != null && isInteger(ctx.assignmentExpression().getText())) {
                 try {

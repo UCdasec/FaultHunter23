@@ -1,4 +1,4 @@
-// Generated from C:/Users/guill/uc_rhest/FaultHunter/src/main/java/com/afivd/afivd\C.g4 by ANTLR 4.12.0
+// Generated from /home/prateekvk/Desktop/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.12.0
 package com.afivd.afivd;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -348,6 +348,18 @@ public class CBaseListener implements CListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclarationSpecifier(CParser.DeclarationSpecifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1020,6 +1032,18 @@ public class CBaseListener implements CListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTranslationUnit(CParser.TranslationUnitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
