@@ -206,9 +206,6 @@ public class ConstantCoding extends CBaseListener implements FaultPattern {
         }
     }
 
-    // TODO: Add override code to also look at "#define" constants as well. Note, define statements are not part of the
-    //  current grammar file. This is because #define statements are preprocessed
-
     // -------------------------------------------- Helper Functions ---------------------------------------------------
 
     /**

@@ -266,6 +266,7 @@ public class Branch extends CBaseListener implements FaultPattern{
 
     // -------------------------------------------- Helper Functions ---------------------------------------------------
     // TODO: Use a more efficient integer checking function later
+    // low priority
     private boolean isInteger(String str) {
         return str.matches("-?\\d+");
     }
