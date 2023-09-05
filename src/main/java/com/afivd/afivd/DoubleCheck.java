@@ -56,7 +56,6 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
             if (ctx.If() != null) {
                 // Check how many ifs there are inside this one:
                 int start = ctx.start.getLine();
-                ifStartPositions.add(start);
                 int startChar = ctx.start.getCharPositionInLine();
                 indentationPoints.add(startChar);
                 int end = ctx.stop.getLine();
@@ -82,10 +81,6 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
         int startLine = ctx.start.getLine();
         int endLine = ctx.stop.getLine();
 
-        if (!complementFound) {
-            // Send out result... [VULNERABLE CONDITIONAL]
-            this.output.appendResult(new ResultLine(ResultLine.SPANNING_RESULT, "double_check", "Recommended addition of complement check regarding condition at " + startLine + " to " + endLine + ". See replacements! ", startLine, endLine));
-        }
         // Out of root
         if (endLine >= rootConditionalEnd) {
 
@@ -93,49 +88,68 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
 
             String finishedInsertion;
 
-            if (!varNames.isEmpty() && !relations.isEmpty() && !relations.isEmpty() && !complementFound) {
+            if (!varNames.isEmpty() && !values.isEmpty() && !relations.isEmpty()) {
                 for (int j = 0; j < ifStartPositions.size(); j++) {
                     String leftHandExpression = varNames.get(j);
-                    //we need to check whether leftHandExpression is a boolean or non-boolean variable. If it is a boolean
-                    //we prefix with ! or else we use ~
-                    for (int k = ifStartPositions.get(j); k >= 0; k--) {
-                        String codeLine = codeLines.get(k);
-                        if(codeLine.contains("bool " + leftHandExpression)) {
-                            leftHandExpression = "!" + leftHandExpression;
-                            break;
-                        }
-                        else if (k == 0) {
-                            leftHandExpression = "~" + leftHandExpression;
-                        }
-                    }
-                    String comparisonExpression = findCorrespondingPair(relations.get(j));
-                    String rightHandExpression = String.valueOf(parseComplement(values.get(j)));
-                    //we also need to check whether rightHandExpression is a boolean or non-boolean variable if in case rightHandExpression is returned
-                    //as the same, we verify it here.
-                    if (rightHandExpression == values.get(j)) {
-                        for (int k = ifStartPositions.get(j); k >= 0; k--) {
-                            String codeLine = codeLines.get(k);
-                            if(codeLine.contains("bool " + rightHandExpression)) {
-                                rightHandExpression = "!" + rightHandExpression;
-                                break;
-                            }
-                            else if (k == 0) {
-                                rightHandExpression = "~" + rightHandExpression;
-                            }
-                        }
-                    }
-                    String indentation = createIndentation(indentationPoints.get(j));
-                    // TODO: Not important, but fix indentation on formatting
-                    finishedInsertion = indentation + "if(" + leftHandExpression + " " + comparisonExpression + " " + rightHandExpression + "){\n" +
-                            indentation + indentation + "faultDetect();\n" + indentation + "}";
 
-                    // finding the opening curly brace and adding to that line
-                    for (int i = ifStartPositions.get(j); i < endLine; i++) {
-                        String currentLine = codeLines.get(i - 1);
-                        if (currentLine.endsWith("{")) {
-                            codeLines.set(i - 1, currentLine + "\n" + finishedInsertion);
-                            break;
+                    //we need to check whether leftHandExpression is a boolean or non-boolean variable. If it is a boolean
+                    //we prefix with ! or else we use ~ only if it doesn't already start with it
+                    if (!leftHandExpression.startsWith("~")) {
+                        if (!leftHandExpression.startsWith("!")) {
+                            for (int k = ifStartPositions.get(j); k >= 0; k--) {
+                                String codeLine = codeLines.get(k);
+                                if (codeLine.contains("bool " + leftHandExpression)) {
+                                    leftHandExpression = "!" + leftHandExpression;
+                                    break;
+                                } else if (k == 0) {
+                                    leftHandExpression = "~" + leftHandExpression;
+                                }
+                            }
                         }
+
+                        // if left-hand expression is equal to the variable name of the next list in item and the same
+                        // holds for the relation and the values, we know there is a complement check right after
+                        complementFound = false;
+                        // if last if statement, it obviously does not have a double check or if the LHS and RHS both don't match
+                        if (j == ifStartPositions.size() - 1 || !leftHandExpression.equals(varNames.get(j + 1)) || !isComplement(values.get(j), values.get(j+1))) {
+                            this.output.appendResult(new ResultLine(ResultLine.SPANNING_RESULT, "double_check", "Recommended addition of complement check regarding condition at " + ifStartPositions.get(j) + ". See replacements! ", ifStartPositions.get(j), endLine));
+
+                            String comparisonExpression = findCorrespondingPair(relations.get(j));
+                            String rightHandExpression = String.valueOf(parseComplement(values.get(j)));
+                            //we also need to check whether rightHandExpression is a boolean or non-boolean variable if in case rightHandExpression is returned
+                            //as the same, we verify it here.
+                            if (rightHandExpression == values.get(j)) {
+                                for (int k = ifStartPositions.get(j); k >= 0; k--) {
+                                    String codeLine = codeLines.get(k);
+                                    if(codeLine.contains("bool " + rightHandExpression)) {
+                                        rightHandExpression = "!" + rightHandExpression;
+                                        break;
+                                    }
+                                    else if (k == 0) {
+                                        rightHandExpression = "~" + rightHandExpression;
+                                    }
+                                }
+                            }
+                            String indentation = createIndentation(indentationPoints.get(j));
+                            // TODO: Not important, but fix indentation on formatting
+                            finishedInsertion = indentation + "if(" + leftHandExpression + " " + comparisonExpression + " " + rightHandExpression + "){\n" +
+                                    indentation + indentation + "faultDetect();\n" + indentation + "}";
+
+                            // finding the opening curly brace and adding to that line
+                            for (int i = ifStartPositions.get(j); i < endLine; i++) {
+                                String currentLine = codeLines.get(i - 1);
+                                if (currentLine.endsWith("{")) {
+                                    codeLines.set(i - 1, currentLine + "\n" + finishedInsertion);
+                                    break;
+                                }
+                            }
+                        }
+                        else complementFound = true; // no need to append anything
+
+                    }
+                    else {
+                        complementFound = true;
+                        // else we assume this is the double check and ignore
                     }
                 }
             }
@@ -148,6 +162,8 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
             currentlyInIfStatement = false;
             rootConditionFound = false;
         }
+
+
     }
 
     @Override
@@ -162,75 +178,6 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
 
             if (ctxes.size() > 1) {
 
-                if (rootConditionFound) {
-                    // check for complement
-                    // Grab root value, then get the complement, check if that is either on left or right.
-                    if (isIntegerOrHex(ctxes.get(0).getText()) || isTrueOrFalse(ctxes.get(0).getText())) {
-                        // left is int or hex or true/false
-                        String value = ctxes.get(0).getText();
-                        // if int/hex or bool, verify complement if true
-                        if (isIntegerOrHex(value)) {
-                            int pComplement = Integer.parseInt(parseComplement(value));
-
-                            if (isComplement(Integer.parseInt(values.get(0)), pComplement)) {
-                                complementFound = true;
-                                return;
-                            }
-
-                        } else if (isTrueOrFalse(value)) {
-                            boolean pComplement = Boolean.valueOf(parseComplement(value));
-
-                            if (isComplement(Boolean.valueOf(values.get(0)), pComplement)) {
-                                complementFound = true;
-                                return;
-                            }
-                        }
-
-                    } else if (isIntegerOrHex(ctxes.get(1).getText()) || isTrueOrFalse(ctxes.get(1).getText())) {
-                        String value = ctxes.get(1).getText();
-                        // if int/hex or bool, verify complement if true
-                        if (isIntegerOrHex(value)) {
-                            int pComplement = Integer.parseInt(parseComplement(value));
-
-                            if (isComplement(Integer.parseInt(values.get(0)), pComplement)) {
-                                complementFound = true;
-                                return;
-                            }
-
-                        } else if (isTrueOrFalse(value)) {
-                            boolean pComplement = Boolean.valueOf(parseComplement(value));
-
-                            if (isComplement(Boolean.valueOf(values.get(0)), pComplement)) {
-                                complementFound = true;
-                                return;
-                            }
-                        }
-
-                    } else {
-                        // No num
-                        return;
-                    }
-                } else {
-//                    // Grab root conditional information
-//                    // Check if left or right are decimal or true/false, then assign value/varname respectively.
-//                    if (isIntegerOrHex(ctxes.get(0).getText()) || isTrueOrFalse(ctxes.get(0).getText())) {
-//                        // left is int or hex
-//                        varNames.add(ctxes.get(1).getText());
-//                        String value = ctxes.get(0).getText();
-//                        addParsedInteger(value);
-//
-//                    } else if (isIntegerOrHex(ctxes.get(1).getText()) || isTrueOrFalse(ctxes.get(1).getText())) {
-//                        varNames.add(ctxes.get(0).getText());
-//                        String value = ctxes.get(1).getText();
-//                        addParsedInteger(value);
-//
-//                    } else {
-//                        // No numbers in condition
-//                        return;
-//                    }
-
-                    rootConditionFound = true;
-                }
                 // Grab root conditional information
                 // Check if left or right are decimal or true/false, then assign value/varname respectively.
                 if (isIntegerOrHex(ctxes.get(0).getText()) || isTrueOrFalse(ctxes.get(0).getText())) {
@@ -238,17 +185,20 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
                     varNames.add(ctxes.get(1).getText());
                     String value = ctxes.get(0).getText();
                     addParsedInteger(value);
+                    ifStartPositions.add(start);
 
                 } else if (isIntegerOrHex(ctxes.get(1).getText()) || isTrueOrFalse(ctxes.get(1).getText())) {
                     varNames.add(ctxes.get(0).getText());
                     String value = ctxes.get(1).getText();
                     addParsedInteger(value);
+                    ifStartPositions.add(start);
 
                 } else {
                     // both are variables
                     varNames.add(ctxes.get(0).getText());
                     String value = ctxes.get(1).getText();
                     addParsedInteger(value);
+                    ifStartPositions.add(start);
                 }
             }
         }
@@ -308,12 +258,19 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
         return str.matches("^\\s*if\\s*\\(.*$");
     }
 
-    private boolean isComplement(int original, int candidate) {
-        return candidate == (~original & 0xFFFF);
-    }
-
-    private boolean isComplement(boolean original, boolean candidate) {
-        return candidate == !original;
+    private boolean isComplement(String original, String candidate) {
+        if (isIntegerOrHex(original) && isIntegerOrHex(candidate)) {
+            Integer int_original = Integer.parseInt(original);
+            Integer int_candidate = Integer.parseInt(candidate);
+            int_original = ~int_original;
+            return int_candidate == int_original;
+        }
+        else if (isTrueOrFalse(original) && isTrueOrFalse(candidate)) {
+            Boolean bool_original = Boolean.parseBoolean(original);
+            Boolean bool_candidate = Boolean.parseBoolean(candidate);
+            return bool_candidate != bool_original;
+        }
+        else return false;
     }
 
 }
