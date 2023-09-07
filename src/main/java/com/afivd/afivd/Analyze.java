@@ -72,6 +72,7 @@ public class    Analyze {
         faultPatterns.add(new LoopCheck(results,codeVariables,codeLines, 4));
         faultPatterns.add(new Branch(results));
         faultPatterns.add(new DoubleCheck(results, codeLines));
+        faultPatterns.add(new Detect(results, codeLines));
         // Respond respondListener = new Respond();
         // Delay delayListener = new Delay();
         // Bypass bypassListener = new Bypass();
