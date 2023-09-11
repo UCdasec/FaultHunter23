@@ -18,6 +18,7 @@ As you can see, each node has a name. This is how we identify the node we want t
 | 3   | Default Fail |
 | 4   | Double Check |
 | 5   | Loop Check |
+| 6   | Detect |
 
 ## 1. Branch
 
@@ -79,5 +80,14 @@ Please refer below to an example with three `for` loops. The first and second lo
 
 ![Loop Check Example](Loop_Check_Example.png)
 
+## 6. Detect
+
+Detect is a fault protection pattern that checks whether any sensitive variable has been modified by fault injection over the course of execution. It consists of creating a complement of a variable at the beginning during declaration, and then ensuring that a checksum with that complement, possibly before the execution of sensitive code, passes.
+
+Fault Hunter checks for the 'Detect' fault pattern by looking specifically at globally declared variables. The reasoning is that externally declared variables are important since they have a universal scope. So, each global variable, found in the form of an `ExternalDeclaration` node is stored along with its value, and is marked not having a checksum. Since checksums are verified through the use of an `XOR` operation, we look for any `ExclusiveOrExpression` nodes. If the variables in this operation are in the list of global variables we declared earlier, we mark that the variable is found. Finally, we loop through this list and throw an error for every variable that is still declared to not be found in a checksum comparison.
+
+Below is a screenshot of an example where there is a global variable that does have a checksum and one that does not. Notice how `insecure_key` (aptly named) has no checksum verification anywhere in the code, so it throws a `DETECT` error.
+
+![Detect example](detect_example.png)
 
 
