@@ -1,4 +1,4 @@
-// Generated from /home/prateekvk/Desktop/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.12.0
+// Generated from /home/prateekvk/Projects/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.13.1
 package com.afivd.afivd;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -1044,6 +1044,18 @@ public class CBaseListener implements CListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHeaderFile(CParser.HeaderFileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHeaderFile(CParser.HeaderFileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

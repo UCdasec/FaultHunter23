@@ -26,29 +26,35 @@ public class Detect extends CBaseListener implements FaultPattern{
     @Override
     public void enterExternalDeclaration(CParser.ExternalDeclarationContext ctx) {
         // we don't want external declarations that are functions
-        if (ctx.declaration() != null) {
+        if (ctx.declaration() != null && ctx.declaration().initDeclaratorList() != null) {
             String codeline = ctx.declaration().initDeclaratorList().getText();
 
             // first we collect all the variable names and values, and assume that a checksum is not conducted
             // in case there is more than one variable detected per line
             String[] variables;
             String variable;
-            if (codeline.contains(",")) {
-                variables = codeline.split(",");
-                for (int i = 0; i < variables.length; i++) {
-                    external_variables.add(variables[i].substring(0, variables[i].indexOf('=')));
-                    external_var_values.add(variables[i].substring(variables[i].indexOf('=') + 1));
+
+            // check if declaration is actually function prototype
+            if (!codeline.matches("\\w+\\((?:\\w+|)*\\)")) {
+                if (codeline.contains(",")) {
+                    variables = codeline.split(",");
+                    for (int i = 0; i < variables.length; i++) {
+                        if (variables[i].contains("=")) {
+                            external_variables.add(variables[i].substring(0, variables[i].indexOf('=')));
+                            external_var_values.add(variables[i].substring(variables[i].indexOf('=') + 1));
+                            variable_lines.add(ctx.start.getLine());
+                            checksum_found.add(false);
+                        }
+                    }
+                } else if (codeline.contains("=")) { // only one variable per line
+                    variable = codeline.substring(0, codeline.indexOf('='));
+                    external_variables.add(variable);
+
+                    String value = codeline.substring(codeline.indexOf('=') + 1);
+                    external_var_values.add(value);
                     variable_lines.add(ctx.start.getLine());
                     checksum_found.add(false);
                 }
-            } else { // only one variable per line
-                variable = codeline.substring(0, codeline.indexOf('='));
-                external_variables.add(variable);
-
-                String value = codeline.substring(codeline.indexOf('=') + 1);
-                external_var_values.add(value);
-                variable_lines.add(ctx.start.getLine());
-                checksum_found.add(false);
             }
         }
     }

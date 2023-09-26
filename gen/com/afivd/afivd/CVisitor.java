@@ -1,4 +1,4 @@
-// Generated from /home/prateekvk/Desktop/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.12.0
+// Generated from /home/prateekvk/Projects/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.13.1
 package com.afivd.afivd;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -526,6 +526,12 @@ public interface CVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CParser#headerFile}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHeaderFile(CParser.HeaderFileContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CParser#externalDeclaration}.
 	 * @param ctx the parse tree

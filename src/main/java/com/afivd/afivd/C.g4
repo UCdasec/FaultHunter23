@@ -39,6 +39,7 @@ primaryExpression
     |   '__extension__'? '(' compoundStatement ')' // Blocks (GCC extension)
     |   '__builtin_va_arg' '(' unaryExpression ',' typeName ')'
     |   '__builtin_offsetof' '(' typeName ',' unaryExpression ')'
+    |   typeSpecifier
     ;
 
 genericSelection
@@ -174,15 +175,16 @@ declarationSpecifier
     ;
 
 preprocessorDeclaration
-    :   primaryExpression (expression | '(' expression ')')
+    :   directDeclarator (directDeclarator | primaryExpression | compoundStatement)+
     ;
+
 
 initDeclaratorList
     :   initDeclarator (',' initDeclarator)*
     ;
 
 initDeclarator
-    :   declarator ('=' initializer)?
+    :   declarator directDeclarator? ('=' initializer)?
     ;
 
 storageClassSpecifier
@@ -488,16 +490,22 @@ translationUnit
     ;
 
 preprocessorDirective
-    :   Define preprocessorDeclaration
-    |   PP_if '(' expression ')' (preprocessorDirective | statement)
-        (PP_elif '(' expression ')' (preprocessorDirective | statement))*
-        (PP_else (preprocessorDirective | statement))?
-        PP_endif
-    |   PP_ifdef primaryExpression (preprocessorDirective | statement) PP_endif
-    |   PP_ifndef primaryExpression (preprocessorDirective | statement) PP_endif
-    |   PP_undef primaryExpression
+    :   Include headerFile
+    |   Define preprocessorDeclaration
+//    |   PP_if '('? expression ')'? preprocessorConditional*
+//        (PP_elif '(' expression ')' preprocessorConditional*)*
+//        (PP_else preprocessorConditional*)?
+//        PP_endif
+//    |   PP_ifdef primaryExpression preprocessorConditional* PP_endif
+//    |   PP_ifndef primaryExpression preprocessorConditional* PP_endif
+    |   Undef primaryExpression
     |   Warning primaryExpression
     |   Error primaryExpression
+    ;
+
+headerFile
+    :   '<' (Identifier '/'?)+ '.h' '>'
+    |   StringLiteral
     ;
 
 externalDeclaration
@@ -616,14 +624,15 @@ Arrow : '->';
 Dot : '.';
 Ellipsis : '...';
 
+Include: '#include';
 Define: '#define';
-PP_if: '#if';
-PP_ifdef: '#ifdef';
-PP_ifndef: '#ifndef';
-PP_elif: '#elif';
-PP_else: '#else';
-PP_endif: '#endif';
-PP_undef: '#undef';
+//PP_if: '#if';
+//PP_ifdef: '#ifdef';
+//PP_ifndef: '#ifndef';
+//PP_elif: '#elif';
+//PP_else: '#else';
+//PP_endif: '#endif';
+Undef: '#undef';
 Warning: '#warning';
 Error: '#error';
 
@@ -865,15 +874,15 @@ SChar
     |   '\\\r\n' // Added line
     ;
 
-//ComplexDefine
-//    :   '#' Whitespace? ('define' | 'ifdef' | 'endif' | 'if' | 'warning')  ~[#\r\n]*
-//        -> skip
-//    ;
-
-IncludeDirective
-    :   '#' Whitespace? 'include' Whitespace? (('"' ~[\r\n]* '"') | ('<' ~[\r\n]* '>' )) Whitespace? Newline
+ComplexDefine
+    :   '#' Whitespace? (/*'define' |*/ 'ifdef' | 'endif' | 'if' | 'else' | 'elif' /*| 'warning'*/)  ~[#\r\n]*
         -> skip
     ;
+
+//IncludeDirective
+//    :   '#' Whitespace? 'include' Whitespace? (('"' ~[\r\n]* '"') | ('<' ~[\r\n]* '>' )) Whitespace? Newline
+//        -> skip
+//    ;
 
 // ignore the following asm blocks:
 /*
@@ -923,5 +932,10 @@ BlockComment
 
 LineComment
     :   '//' ~[\r\n]*
+        -> skip
+    ;
+
+LoneSlash
+    :   '\\' '\r'
         -> skip
     ;

@@ -89,18 +89,25 @@ public class ConstantCoding extends CBaseListener implements FaultPattern {
         int lineNumber = token.getLine();
         int number;
 
-        if(ctx.expression() != null && isInteger(ctx.expression().getText())) {
-            try {
-                if (isHex(ctx.expression().getText())) {
-                    number = Integer.parseInt(ctx.expression().getText().replaceAll("0x", ""), 16);
-                } else {
-                    number = Integer.parseInt(ctx.expression().getText());
-                }
-            } catch (NumberFormatException e) {System.out.println("something wrong with regex");return;}
+        List<CParser.PrimaryExpressionContext> defineValues = ctx.primaryExpression().subList(0,ctx.primaryExpression().size());
 
-            lineNumbers.add(lineNumber);
-            expressionContent.add(ctx.primaryExpression().getText() + ' ' + ctx.expression().getText());
-            values.add(number);
+        for (CParser.PrimaryExpressionContext defineValue: defineValues) {
+            if (defineValue != null && isInteger(defineValue.getText())) {
+                try {
+                    if (isHex(defineValue.getText())) {
+                        number = Integer.parseInt(defineValue.getText().replaceAll("0x", ""), 16);
+                    } else {
+                        number = Integer.parseInt(defineValue.getText());
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("something wrong with regex");
+                    return;
+                }
+
+                lineNumbers.add(lineNumber);
+                expressionContent.add(ctx.directDeclarator(0).getText() + ' ' + defineValue.getText());
+                values.add(number);
+            }
         }
     }
 

@@ -62,6 +62,7 @@ public class MainSceneController {
     protected void loadFileButton() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select a C file...");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")).getParentFile());
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("C Files (*.c)","*.c"));
         File cFile = fileChooser.showOpenDialog(this.loadFileButton.getScene().getWindow());
         try {

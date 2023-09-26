@@ -130,10 +130,10 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
                                     }
                                 }
                             }
-                            String indentation = createIndentation(indentationPoints.get(j));
+//                            String indentation = createIndentation(indentationPoints.get(j));
                             // TODO: Not important, but fix indentation on formatting
-                            finishedInsertion = indentation + "if(" + leftHandExpression + " " + comparisonExpression + " " + rightHandExpression + "){\n" +
-                                    indentation + indentation + "faultDetect();\n" + indentation + "}";
+                            finishedInsertion = "\tif(" + leftHandExpression + " " + comparisonExpression + " " + rightHandExpression + "){\n" +
+                                    "\t\tfaultDetect();\n\t}";
 
                             // finding the opening curly brace and adding to that line
                             for (int i = ifStartPositions.get(j); i < endLine; i++) {

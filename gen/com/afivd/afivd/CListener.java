@@ -1,4 +1,4 @@
-// Generated from /home/prateekvk/Desktop/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.12.0
+// Generated from /home/prateekvk/Projects/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.13.1
 package com.afivd.afivd;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -867,6 +867,16 @@ public interface CListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CParser#headerFile}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeaderFile(CParser.HeaderFileContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CParser#headerFile}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeaderFile(CParser.HeaderFileContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CParser#externalDeclaration}.
 	 * @param ctx the parse tree

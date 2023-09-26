@@ -1,4 +1,4 @@
-// Generated from /home/prateekvk/Desktop/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.12.0
+// Generated from /home/prateekvk/Projects/FaultHunter23/src/main/java/com/afivd/afivd/C.g4 by ANTLR 4.13.1
 package com.afivd.afivd;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -614,6 +614,13 @@ public class CBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements CVis
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHeaderFile(CParser.HeaderFileContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
