@@ -16,6 +16,7 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
     private boolean rootConditionFound = false;
     private boolean complementFound = false;
     private boolean inForCondition = false;
+    private boolean inWhileCondition = false;
 
     private final ParsedResults output;
     private final ArrayList<String> codeLines;
@@ -47,6 +48,17 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
     public void enterForCondition(CParser.ForConditionContext ctx) {this.inForCondition = true;}
     @Override
     public void exitForCondition(CParser.ForConditionContext ctx) {this.inForCondition = false;}
+
+    @Override
+    public void enterIterationStatement(CParser.IterationStatementContext ctx) {
+        inWhileCondition = currentlyInIfStatement;
+        currentlyInIfStatement = false;
+    }
+    @Override
+    public void exitIterationStatement(CParser.IterationStatementContext ctx) {
+        currentlyInIfStatement = inWhileCondition;
+        inWhileCondition = false;
+    }
 
     @Override
     public void enterSelectionStatement(CParser.SelectionStatementContext ctx) {
@@ -169,7 +181,7 @@ public class DoubleCheck extends CBaseListener implements FaultPattern {
     @Override
     public void enterEqualityExpression(CParser.EqualityExpressionContext ctx) {
         // Needs to be if statement
-        if (currentlyInIfStatement || !inForCondition) {
+        if (currentlyInIfStatement) {
             String si = ctx.getText();
 
             int start = ctx.start.getLine();
