@@ -288,16 +288,6 @@ public interface CListener extends ParseTreeListener {
 	 */
 	void exitDeclarationSpecifier(CParser.DeclarationSpecifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CParser#preprocessorDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CParser#preprocessorDeclaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link CParser#initDeclaratorList}.
 	 * @param ctx the parse tree
 	 */
@@ -507,6 +497,16 @@ public interface CListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDirectDeclarator(CParser.DirectDeclaratorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CParser#vcSpecificModifer}.
+	 * @param ctx the parse tree
+	 */
+	void enterVcSpecificModifer(CParser.VcSpecificModiferContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CParser#vcSpecificModifer}.
+	 * @param ctx the parse tree
+	 */
+	void exitVcSpecificModifer(CParser.VcSpecificModiferContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CParser#gccDeclaratorExtension}.
 	 * @param ctx the parse tree
@@ -857,26 +857,6 @@ public interface CListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTranslationUnit(CParser.TranslationUnitContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CParser#preprocessorDirective}.
-	 * @param ctx the parse tree
-	 */
-	void enterPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CParser#preprocessorDirective}.
-	 * @param ctx the parse tree
-	 */
-	void exitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CParser#headerFile}.
-	 * @param ctx the parse tree
-	 */
-	void enterHeaderFile(CParser.HeaderFileContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CParser#headerFile}.
-	 * @param ctx the parse tree
-	 */
-	void exitHeaderFile(CParser.HeaderFileContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CParser#externalDeclaration}.
 	 * @param ctx the parse tree

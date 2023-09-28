@@ -83,33 +83,33 @@ public class ConstantCoding extends CBaseListener implements FaultPattern {
     }
 
     // enterPreprocessorDeclaration for preprocessorDirective #define statements
-    @Override
-    public void enterPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx) {
-        Token token = ctx.getStart();
-        int lineNumber = token.getLine();
-        int number;
-
-        List<CParser.PrimaryExpressionContext> defineValues = ctx.primaryExpression().subList(0,ctx.primaryExpression().size());
-
-        for (CParser.PrimaryExpressionContext defineValue: defineValues) {
-            if (defineValue != null && isInteger(defineValue.getText())) {
-                try {
-                    if (isHex(defineValue.getText())) {
-                        number = Integer.parseInt(defineValue.getText().replaceAll("0x", ""), 16);
-                    } else {
-                        number = Integer.parseInt(defineValue.getText());
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("something wrong with regex");
-                    return;
-                }
-
-                lineNumbers.add(lineNumber);
-                expressionContent.add(ctx.directDeclarator(0).getText() + ' ' + defineValue.getText());
-                values.add(number);
-            }
-        }
-    }
+//    @Override
+//    public void enterPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx) {
+//        Token token = ctx.getStart();
+//        int lineNumber = token.getLine();
+//        int number;
+//
+//        if (ctx.initializer() !=  null) {
+//            for (CParser.PrimaryExpressionContext defineValue : defineValues) {
+//                if (defineValue != null && isInteger(defineValue.getText())) {
+//                    try {
+//                        if (isHex(defineValue.getText())) {
+//                            number = Integer.parseInt(defineValue.getText().replaceAll("0x", ""), 16);
+//                        } else {
+//                            number = Integer.parseInt(defineValue.getText());
+//                        }
+//                    } catch (NumberFormatException e) {
+//                        System.out.println("something wrong with regex");
+//                        return;
+//                    }
+//
+//                    lineNumbers.add(lineNumber);
+//                    expressionContent.add(ctx.directDeclarator(0).getText() + ' ' + defineValue.getText());
+//                    values.add(number);
+//                }
+//            }
+//        }
+//    }
 
     // enterInitDeclarator and enterAssignmentExpression collects values in the file and finds explicit declarations
     @Override

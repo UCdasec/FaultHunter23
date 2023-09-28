@@ -179,12 +179,6 @@ public interface CVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclarationSpecifier(CParser.DeclarationSpecifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CParser#preprocessorDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPreprocessorDeclaration(CParser.PreprocessorDeclarationContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CParser#initDeclaratorList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -310,6 +304,12 @@ public interface CVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDirectDeclarator(CParser.DirectDeclaratorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CParser#vcSpecificModifer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVcSpecificModifer(CParser.VcSpecificModiferContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CParser#gccDeclaratorExtension}.
 	 * @param ctx the parse tree
@@ -520,18 +520,6 @@ public interface CVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTranslationUnit(CParser.TranslationUnitContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CParser#preprocessorDirective}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPreprocessorDirective(CParser.PreprocessorDirectiveContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CParser#headerFile}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitHeaderFile(CParser.HeaderFileContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CParser#externalDeclaration}.
 	 * @param ctx the parse tree

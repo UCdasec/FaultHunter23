@@ -42,7 +42,7 @@ public class DefaultFail extends CBaseListener implements FaultPattern{
                 CParser.BlockItemListContext elseLines = ctx.statement().get(1).compoundStatement().blockItemList();
                 if (elseLines.blockItem(0).statement().jumpStatement() != null && elseLines.blockItem(0).statement().jumpStatement().expression() == null) {
                     // do nothing; all good
-                } else if (elseLines.blockItem(0).statement().expressionStatement() != null) {
+                } else if (elseLines.blockItem(0).statement().expressionStatement() != null || (elseLines.blockItem(0).statement().jumpStatement() != null && elseLines.blockItem(0).statement().jumpStatement().expression() != null)) {
                     // in this case, there is no return statement at all
                     this.output.appendResult(new ResultLine(ResultLine.SINGLE_LINE, "default_fail", "\"" + ctx.Else().getText() + "\"" + " uses potentially unsafe else statement. ", ctx.Else().getSymbol().getLine()));
                 }

@@ -39,7 +39,6 @@ primaryExpression
     |   '__extension__'? '(' compoundStatement ')' // Blocks (GCC extension)
     |   '__builtin_va_arg' '(' unaryExpression ',' typeName ')'
     |   '__builtin_offsetof' '(' typeName ',' unaryExpression ')'
-    |   typeSpecifier
     ;
 
 genericSelection
@@ -62,7 +61,8 @@ postfixExpression
     ('[' expression ']'
     | '(' argumentExpressionList? ')'
     | ('.' | '->') Identifier
-    | ('++' | '--')
+    | '++'
+    | '--'
     )*
     ;
 
@@ -155,7 +155,6 @@ constantExpression
 declaration
     :   declarationSpecifiers initDeclaratorList? ';'
     |   staticAssertDeclaration
-    |   preprocessorDeclaration
     ;
 
 declarationSpecifiers
@@ -174,17 +173,12 @@ declarationSpecifier
     |   alignmentSpecifier
     ;
 
-preprocessorDeclaration
-    :   directDeclarator (directDeclarator | primaryExpression | compoundStatement)+
-    ;
-
-
 initDeclaratorList
     :   initDeclarator (',' initDeclarator)*
     ;
 
 initDeclarator
-    :   declarator directDeclarator? ('=' initializer)?
+    :   declarator ('=' initializer)?
     ;
 
 storageClassSpecifier
@@ -197,7 +191,7 @@ storageClassSpecifier
     ;
 
 typeSpecifier
-    :   ('void'
+    :   'void'
     |   'char'
     |   'short'
     |   'int'
@@ -210,14 +204,13 @@ typeSpecifier
     |   '_Complex'
     |   '__m128'
     |   '__m128d'
-    |   '__m128i')
+    |   '__m128i'
     |   '__extension__' '(' ('__m128' | '__m128d' | '__m128i') ')'
     |   atomicTypeSpecifier
     |   structOrUnionSpecifier
     |   enumSpecifier
     |   typedefName
     |   '__typeof__' '(' constantExpression ')' // GCC extension
-    |   typeSpecifier pointer
     ;
 
 structOrUnionSpecifier
@@ -234,8 +227,9 @@ structDeclarationList
     :   structDeclaration+
     ;
 
-structDeclaration
-    :   specifierQualifierList structDeclaratorList? ';'
+structDeclaration // The first two rules have priority order and cannot be simplified to one expression.
+    :   specifierQualifierList structDeclaratorList ';'
+    |   specifierQualifierList ';'
     |   staticAssertDeclaration
     ;
 
@@ -281,10 +275,10 @@ typeQualifier
     ;
 
 functionSpecifier
-    :   ('inline'
+    :   'inline'
     |   '_Noreturn'
     |   '__inline__' // GCC extension
-    |   '__stdcall')
+    |   '__stdcall'
     |   gccAttributeSpecifier
     |   '__declspec' '(' Identifier ')'
     ;
@@ -307,8 +301,19 @@ directDeclarator
     |   directDeclarator '(' parameterTypeList ')'
     |   directDeclarator '(' identifierList? ')'
     |   Identifier ':' DigitSequence  // bit field
-    |   '(' typeSpecifier? pointer directDeclarator ')' // function pointer like: (__cdecl *f)
+    |   vcSpecificModifer Identifier // Visual C Extension
+    |   '(' vcSpecificModifer declarator ')' // Visual C Extension
     ;
+
+vcSpecificModifer
+    :   '__cdecl'
+    |   '__clrcall'
+    |   '__stdcall'
+    |   '__fastcall'
+    |   '__thiscall'
+    |   '__vectorcall'
+    ;
+
 
 gccDeclaratorExtension
     :   '__asm' '(' StringLiteral+ ')'
@@ -439,7 +444,6 @@ blockItemList
 blockItem
     :   statement
     |   declaration
-    |   preprocessorDirective
     ;
 
 expressionStatement
@@ -474,7 +478,8 @@ forExpression
 
 jumpStatement
     :   ('goto' Identifier
-    |   ('continue'| 'break')
+    |   'continue'
+    |   'break'
     |   'return' expression?
     |   'goto' unaryExpression // GCC extension
     )
@@ -489,29 +494,9 @@ translationUnit
     :   externalDeclaration+
     ;
 
-preprocessorDirective
-    :   Include headerFile
-    |   Define preprocessorDeclaration
-//    |   PP_if '('? expression ')'? preprocessorConditional*
-//        (PP_elif '(' expression ')' preprocessorConditional*)*
-//        (PP_else preprocessorConditional*)?
-//        PP_endif
-//    |   PP_ifdef primaryExpression preprocessorConditional* PP_endif
-//    |   PP_ifndef primaryExpression preprocessorConditional* PP_endif
-    |   Undef primaryExpression
-    |   Warning primaryExpression
-    |   Error primaryExpression
-    ;
-
-headerFile
-    :   '<' (Identifier '/'?)+ '.h' '>'
-    |   StringLiteral
-    ;
-
 externalDeclaration
     :   functionDefinition
     |   declaration
-    |   preprocessorDirective
     |   ';' // stray ;
     ;
 
@@ -623,18 +608,6 @@ NotEqual : '!=';
 Arrow : '->';
 Dot : '.';
 Ellipsis : '...';
-
-Include: '#include';
-Define: '#define';
-//PP_if: '#if';
-//PP_ifdef: '#ifdef';
-//PP_ifndef: '#ifndef';
-//PP_elif: '#elif';
-//PP_else: '#else';
-//PP_endif: '#endif';
-Undef: '#undef';
-Warning: '#warning';
-Error: '#error';
 
 Identifier
     :   IdentifierNondigit
@@ -871,18 +844,13 @@ SChar
     :   ~["\\\r\n]
     |   EscapeSequence
     |   '\\\n'   // Added line
-    |   '\\\r\n' // Added line
+    |   '\\\r\n' // Added linea
     ;
 
-ComplexDefine
-    :   '#' Whitespace? (/*'define' |*/ 'ifdef' | 'endif' | 'if' | 'else' | 'elif' /*| 'warning'*/)  ~[#\r\n]*
-        -> skip
-    ;
+MultiLineMacro:
+	'#' (~[\n]*? '\\' '\r'? '\n')+ ~ [\n]+ -> channel (HIDDEN);
 
-//IncludeDirective
-//    :   '#' Whitespace? 'include' Whitespace? (('"' ~[\r\n]* '"') | ('<' ~[\r\n]* '>' )) Whitespace? Newline
-//        -> skip
-//    ;
+Directive: '#' ~ [\n]* -> channel (HIDDEN);
 
 // ignore the following asm blocks:
 /*
@@ -893,49 +861,26 @@ ComplexDefine
  */
 AsmBlock
     :   'asm' ~'{'* '{' ~'}'* '}'
-	-> skip
-    ;
-
-// ignore the lines generated by c preprocessor
-// sample line : '#line 1 "/home/dm/files/dk1.h" 1'
-LineAfterPreprocessing
-    :   '#line' Whitespace* ~[\r\n]*
-        -> skip
-    ;
-
-LineDirective
-    :   '#' Whitespace? DecimalConstant Whitespace? StringLiteral ~[\r\n]*
-        -> skip
-    ;
-
-PragmaDirective
-    :   '#' Whitespace? 'pragma' Whitespace ~[\r\n]*
-        -> skip
+	-> channel(HIDDEN)
     ;
 
 Whitespace
-    :   [ \t]+
-        -> skip
+    :   [ \t]+ -> channel(HIDDEN)
     ;
 
 Newline
     :   (   '\r' '\n'?
         |   '\n'
         )
-        -> skip
+        -> channel(HIDDEN)
     ;
 
 BlockComment
     :   '/*' .*? '*/'
-        -> skip
+        -> channel(HIDDEN)
     ;
 
 LineComment
     :   '//' ~[\r\n]*
-        -> skip
-    ;
-
-LoneSlash
-    :   '\\' '\r'
-        -> skip
+        -> channel(HIDDEN)
     ;
