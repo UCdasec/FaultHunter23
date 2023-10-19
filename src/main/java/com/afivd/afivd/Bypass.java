@@ -12,7 +12,7 @@ public class Bypass extends CBaseListener implements FaultPattern {
 
     @Override
     public void enterExpression(CParser.ExpressionContext ctx) {
-        if (ctx.getParent() instanceof CParser.SelectionStatementContext) {
+        if (ctx.getParent() instanceof CParser.SelectionStatementContext) { // confirms whether this is a conditional expression within an if statement or not
             is_conditionalExpression = true;
             condition_text = ctx.getText();
         }
@@ -20,7 +20,7 @@ public class Bypass extends CBaseListener implements FaultPattern {
 
     @Override
     public void exitExpression(CParser.ExpressionContext ctx) {
-        is_conditionalExpression = false;
+        is_conditionalExpression = false; 
     }
 
     @Override
