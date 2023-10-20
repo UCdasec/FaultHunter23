@@ -11,10 +11,7 @@ import javafx.scene.web.WebView;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * MainSceneController handles interaction with JavaFX UI elements
@@ -49,6 +46,20 @@ public class MainSceneController {
     private Label currentDocumentLabel;
     @FXML
     private Label executionTimeLabel;
+    @FXML
+    private CheckBox branchCheckbox;
+    @FXML
+    private CheckBox bypassCheckbox;
+    @FXML
+    private CheckBox constantCodingCheckbox;
+    @FXML
+    private CheckBox defaultFailCheckbox;
+    @FXML
+    private CheckBox detectCheckbox;
+    @FXML
+    private CheckBox doubleCheckCheckbox;
+    @FXML
+    private CheckBox loopCheckCheckbox;
 
     //@FXML
     //private WebView codeWebView;
@@ -79,7 +90,6 @@ public class MainSceneController {
                 this.commentTextArea.clear();
                 this.replacementTextArea.clear();
                 this.cFilePath = cFile.getAbsolutePath();
-
                 // Enable run button
                 this.loadFileButton.setDisable(true);
                 this.runButton.setDisable(false);
@@ -100,8 +110,10 @@ public class MainSceneController {
 
         // Start timer:
         long startTime = System.nanoTime();
+        ArrayList<CheckBox> fault_patterns = new ArrayList<>(Arrays.asList(branchCheckbox, bypassCheckbox, constantCodingCheckbox, defaultFailCheckbox, detectCheckbox,
+                doubleCheckCheckbox, loopCheckCheckbox));
 
-        Analyze analyze = new Analyze(this.codeLines);
+        Analyze analyze = new Analyze(this.codeLines, fault_patterns);
         if(analyze.loadAndParseC(this.cFilePath)){
             List<ResultLine> results = analyze.runFaultPatterns().getResults();
 

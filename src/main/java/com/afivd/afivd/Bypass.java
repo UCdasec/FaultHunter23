@@ -20,7 +20,7 @@ public class Bypass extends CBaseListener implements FaultPattern {
 
     @Override
     public void exitExpression(CParser.ExpressionContext ctx) {
-        is_conditionalExpression = false; 
+        is_conditionalExpression = false;
     }
 
     @Override
