@@ -1,8 +1,7 @@
 # FaultHunter
 
-![image](https://user-images.githubusercontent.com/90657408/197356817-1784c814-904d-46f4-865a-d4ca8a8c7490.png)
-
-
+[//]: # (![image]&#40;https://user-images.githubusercontent.com/90657408/197356817-1784c814-904d-46f4-865a-d4ca8a8c7490.png&#41;)
+![Screenshot_Readme.png](Media%2FScreenshot_Readme.png)
 FaultHunter is designed to be an automatic fault injection vulnerability detector for C source files. The C source code is parsed using ANTLR, processed using a Java backend, and then presented in a JavaFX GUI. FaultHunter detects vulnerable 'functional blocks' of code, referred to as patterns, based on the prior classification of fault injection patterns by Riscure (See the whitepaper: https://www.riscure.com/uploads/2018/11/201708_Riscure_Whitepaper_Side_Channel_Patterns.pdf). Currently, 'Fault.ConstantCoding', 'Fault.Branch', 'Fault.DefaultFail', and 'Fault.LoopCheck' have implementations. 
 # Content 
 This repository contains a IntelliJ Maven project of FaultHunter using Java 11. The ANTLR library will have to downloaded and pointed to externally. See the requirements section for more details. 
@@ -22,6 +21,7 @@ Files are loaded into the application using a file picker window. Basic usage in
 1. Open the FaultHunter application.
 2. Press the "Load C File" button.
 3. Choose the C file you wish to test using the new file picker window. Then, press "Open".
-4. Press the "Run" button to run the tool. Check the "Show Tree" box if you also wish to see the resultant parse tree (may take over ten seconds if checked).
+4. Select all the fault patterns you would like to check for by ticking them. By default, all of them will be ticked.
+5. Press the "Run" button to run the tool. Check the "Show Tree" box if you also wish to see the resultant parse tree (may take over ten seconds if checked).
 
 The "Comments:" box is now populated with suggestions to reduce fault injection vulnerabilities. Certain patterns also provide additions/modifications to the code that remediate vulnerabilities. You can view these by clicking the "Show Replacements" radio button. ***Disclaimer***: This tool is designed to assist with vulnerability remediation efforts and not completely replace human judgement: false positives and false negatives may exist. 

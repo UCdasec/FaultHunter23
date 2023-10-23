@@ -6,7 +6,7 @@ The purpose of this document is to provide a description of vulnerable coding pa
 
 The general mechanism behind every fault pattern is the use of ANTLR, a program that generates a parse tree of any piece of C code fed into it. Refer to the parse tree generated below for a program that prints "Hello World" for a visualization of the parse tree.
 
-![Parse Tree for Hello World](antlr4_parse_tree_example.jpg)
+![Parse Tree for Hello World](Media/antlr4_parse_tree_example.jpg)
 
 As you can see, each node has a name. This is how we identify the node we want to inspect for a specific fault pattern. ANTLR4 provides a set of functions for each type of node that can be overloaded. This is how we catch hold of a specific node in such a complex parse tree. In our own classes for each pattern, we are able to overload these functions to detect patterns that are vulnerable to fault injection attacks. 
 
@@ -19,6 +19,7 @@ As you can see, each node has a name. This is how we identify the node we want t
 | 4   | Double Check |
 | 5   | Loop Check |
 | 6   | Detect |
+| 7 | Bypass |
 
 ## 1. Branch
 
@@ -28,11 +29,11 @@ For this method, we enter what is either an `EqualityExpression` (for equality, 
 
 Below is an example of FaultHunter successfully detecting Branch, and the latter is a case where we do not see a Branch fault pattern, and so as expected, it does not throw a "Branch error".
 
-![Branch Fault Pattern Success](Branch_Detect_Success.png)
+![Branch Fault Pattern Success](Media/Branch_Detect_Success.png)
 
 And the next example is the latter which will not have a Branch error do to the use of safer programming practices.
 
-![Branch Fault not detected](Branch_Detect_Fail.png)
+![Branch Fault not detected](Media/Branch_Detect_Fail.png)
 
 ## 2. Constant Coding
 
@@ -42,7 +43,7 @@ In Fault Hunter, we test for this by checking for an `InitDeclarator`. The If th
 
 Consider the following example. **As previously noted, not all constant coding scenarios are covered here**.
 
-![Constant coding example](Constant_Coding_example.png)
+![Constant coding example](Media/Constant_Coding_example.png)
 
 ## 3. Default Fail
 
@@ -52,11 +53,11 @@ To detect a default fail, we look at a node called `LabelledStatement` for defau
 
 Consider the two examples below. In the first example, a default fail vulnerability is not detected. This is because there is no sensitive/critical code in the `default` clause of the switch case structure, and in the second, there is a single `return 0;`. While it cannot be said exactly what is sensitive code and what is not, we raise a flag for "potentially" sensitive code whenever any code is detected.
 
-![Default Fail not detected](Default_Fail_not_detected.png)
+![Default Fail not detected](Media/Default_Fail_not_detected.png)
 
 And, the latter where it is detected (because of the `return 0;`)
 
-![Default Fail detected](Default_Fail_detected.png)
+![Default Fail detected](Media/Default_Fail_detected.png)
 
 ## 4. Double Check
 
@@ -66,9 +67,9 @@ In our detection pattern, we look for `SelectionStatement` nodes and we look the
 
 The following example contains both an example of an if statement with a double check and one without. Notice how it detects a double check for one of them and does not for the other. The second screenshot shows the replacement code that is suggested by Fault Hunter.
 
-![Double Check Comments](double_check_comments.png)
+![Double Check Comments](Media/double_check_comments.png)
 
-![Double Check Replacements](double_check_replacements.png)
+![Double Check Replacements](Media/double_check_replacements.png)
 
 ## 5. Loop Check
 
@@ -78,7 +79,7 @@ In Fault Hunter, this is verified by first locating the iterative variable. It c
 
 Please refer below to an example with three `for` loops. The first and second loop have an if statement to verify the loop's completion and the third does not. Notice how it flags the first two loops but not the first.
 
-![Loop Check Example](Loop_Check_Example.png)
+![Loop Check Example](Media/Loop_Check_Example.png)
 
 ## 6. Detect
 
@@ -88,6 +89,14 @@ Fault Hunter checks for the 'Detect' fault pattern by looking specifically at gl
 
 Below is a screenshot of an example where there is a global variable that does have a checksum and one that does not. Notice how `insecure_key` (aptly named) has no checksum verification anywhere in the code, so it throws a `DETECT` error.
 
-![Detect example](detect_example.png)
+![Detect example](Media/detect_example.png)
 
+## 7. Bypass
 
+The Bypass fault pattern is detected when a fault detection before protected functionality is not done at the same level as the protected functionality such as through a function call. This is because it is possible to skip or manipulate the return value of a function call and enter protected functionality.
+
+For the purposes of Fault Hunter, the way we go about detecting Bypass is by flagging any function call inside an `if` statement. This is because function calls within `if` statements take the condition check outside the scope of the current line to the scope of the function. This means the fault detection check cannot take place at the same level as some protected functioanality, so we flag it as a `BYPASS` fault.
+
+In the example below, `check_palindrome()` is a function that takes an integer and returns a `boolean` value based on whether the integer passed is a palindrome or not. For the purposes of this program, it will serve as the test function that detects faults before any protected functionality. As you can see, there are two instances of fault detection before protected functionality, and the former on `line 22` is flagged as a `BYPASS` fault but the fault check on `line 31` is not.
+
+![bypass_example.png](Media%2Fbypass_example.png)
