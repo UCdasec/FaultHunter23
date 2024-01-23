@@ -14,6 +14,7 @@ public class Branch extends CBaseListener implements FaultPattern{
     private boolean inOrExpression;
     private boolean inAndExpression;
     private boolean inForCondition = false;
+    private final int sensitivity;
 
     // Temporary Storage for nested ANDs and ORs
     private final ArrayList<TempResult> tempResults = new ArrayList<>();
@@ -24,10 +25,12 @@ public class Branch extends CBaseListener implements FaultPattern{
     /**
      * Branch pattern Constructor requires the Parser and the output storage, ParsedResults
      * @param output A ParsedResults storage object to be appended to
+     * @param sensitivity The hamming weight sensitivity threshold for hamming weight
      */
-    public Branch(ParsedResults output) {
+    public Branch(ParsedResults output, int sensitivity) {
         this.currentlyInIfStatement = false;
         this.output = output;
+        this.sensitivity = sensitivity;
     }
 
     @Override
@@ -204,15 +207,21 @@ public class Branch extends CBaseListener implements FaultPattern{
                         output.appendResult(new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using trivial bool in branch statement.", lineNumber));
                     }
                 } else if (isInteger(ctxes.get(0).getText()) || isInteger(ctxes.get(1).getText())) {
-                    if (inOrExpression && !inAndExpression) {
-                        tempResults.add(new TempResult(true, TempResult.OR_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
-                    } else if (!inOrExpression && inAndExpression) {
-                        tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
-                    } else if (inOrExpression && inAndExpression) {
-                        tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
-                    } else {
-                        // Else, the if statement does not use an AND or an OR operator
-                        output.appendResult(new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber));
+                    // In case its an integer, we will only label it insecure if the calculated hamming weight is less than sensitivity
+                    int condition_value = 0;
+                    if (isInteger(ctxes.get(0).getText())) { condition_value = Integer.parseInt(ctxes.get(0).getText()); }
+                    else if (isInteger(ctxes.get(1).getText())) { condition_value = Integer.parseInt(ctxes.get(1).getText()); }
+                    if (calculateHamming(condition_value) < sensitivity) {
+                        if (inOrExpression && !inAndExpression) {
+                            tempResults.add(new TempResult(true, TempResult.OR_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
+                        } else if (!inOrExpression && inAndExpression) {
+                            tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
+                        } else if (inOrExpression && inAndExpression) {
+                            tempResults.add(new TempResult(true, TempResult.AND_FLAG, new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber)));
+                        } else {
+                            // Else, the if statement does not use an AND or an OR operator
+                            output.appendResult(new ResultLine(ResultLine.SINGLE_LINE, "branch", "\"" + ctx.getText() + "\"" + " Using explicit integer instead of variable in branch.", lineNumber));
+                        }
                     }
                 }
                 else {
@@ -269,5 +278,35 @@ public class Branch extends CBaseListener implements FaultPattern{
     // low priority
     private boolean isInteger(String str) {
         return str.matches("-?\\d+");
+    }
+
+    /**
+     * CalculateHamming calculates the Hamming Distance between the passed number and zero
+     * @param x Number to calculate Hamming Distance
+     * @return Hamming distance between the passed number and zero
+     */
+    private int calculateHamming(int x) {
+        int count = 0;
+        while (x != 0) {
+            x = x & (x-1);
+            count = count + 1;
+        }
+        return count;
+    }
+
+    /**
+     * CompareHamming calculates the hamming distance between the passed two numbers
+     * @param a Integer number
+     * @param b Integer number
+     * @return The Hamming Distance between the two passed numbers
+     */
+    private int compareHamming(int a, int b) {
+        int count = 0;
+        int x = a ^ b;
+        while (x != 0) {
+            count = count + 1;
+            x = x & (x-1);
+        }
+        return count;
     }
 }

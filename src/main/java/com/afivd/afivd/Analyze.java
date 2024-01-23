@@ -101,7 +101,7 @@ public class    Analyze {
             faultPatterns.add(new LoopCheck(results, codeVariables, codeLines, 4));
         }
         if (this.branchCheckbox.isSelected()) {
-            faultPatterns.add(new Branch(results));
+            faultPatterns.add(new Branch(results, 3));
         }
         if (this.doubleCheckCheckbox.isSelected()) {
             faultPatterns.add(new DoubleCheck(results, codeLines));
